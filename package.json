@@ -1,11 +1,11 @@
 {
   "name": "dogsnavigator_web_playwrite_tests",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwrite tests for Dogsnavigator Web",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
-  "author": "",
+  "author": "Olena Lisova",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.56.0",
