@@ -37,8 +37,12 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "DogsNavigator-WEB",
+      testDir: "tests",
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: "https://dogsnavigator.ua/",
+      },
     },
 
     // {

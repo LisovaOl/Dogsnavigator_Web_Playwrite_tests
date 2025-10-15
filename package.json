@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "Playwrite tests for Dogsnavigator Web",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "ui": "npx playwright test --ui",
+    "debug": "npx playwright test --debug",
+    "codegen": "npx playwright codegen"
+  },
   "keywords": [],
   "author": "Olena Lisova",
   "license": "ISC",
