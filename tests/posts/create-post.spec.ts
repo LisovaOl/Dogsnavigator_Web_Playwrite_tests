@@ -66,5 +66,36 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     // Add text to the post
     const postText = "This is a test post with photo.";
     await page.getByRole("textbox").fill(postText);
+    await expect(page.getByRole("textbox")).toHaveValue(postText);
+    // Publish the post
+    await publishButton.click();
+
+    // Verify post is published
+    await page
+      .getByText("Ваш пост успішно опубліковано!")
+      .waitFor({ state: "visible" });
+    await expect(page.locator(".close-icon")).toBeVisible();
+    await page.locator(".close-icon").click();
+
+    await page
+      .getByText("Ваш пост успішно опубліковано!")
+      .waitFor({ state: "hidden" });
+
+    // Delete the created post to clean up
+    const profileDogLink = page.locator("#menu-bar").getByRole("link", {
+      name: "Профіль Собаки",
+    });
+    await profileDogLink.click();
+    await page.locator("//app-pet-page-publications-tab/ul/li[1]").click();
+    await expect(page.locator("img.post-image")).toBeVisible();
+    await page.getByRole("button").nth(3).click();
+
+    await expect(
+      page.getByText("Ви впевнені, що хочете видалити цей пост?")
+    ).toBeVisible();
+    await page.getByRole("button", { name: "ВИДАЛИТИ" }).click();
+    await expect(
+      page.getByText("Ви впевнені, що хочете видалити цей пост?")
+    ).toBeHidden();
   });
 });
