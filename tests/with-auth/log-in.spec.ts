@@ -1,19 +1,17 @@
 import { test, expect } from "@playwright/test";
 import { before } from "node:test";
+import { applyCookies, logIn, closeInstagramPopup } from "../login-functions";
 
 test.describe("Log In tests", { tag: "@ui" }, () => {
   test.beforeEach(async ({ page }) => {
-    // Go to the starting url before each test.
     await page.goto("/login");
-    await page.getByRole("button", { name: "Я погоджуюсь" }).click();
-    await page.getByRole("list").getByText("Увійти");
-    await page.getByRole("textbox", { name: "Телефон" }).fill("950419402");
-    await page.getByRole("textbox", { name: "Пароль" }).fill("11111111");
-    await page.getByRole("button", { name: "Увійти" }).click();
+
+    await applyCookies(page);
+
+    await logIn(page);
 
     // close Instagram popup if visible
-    await expect(page.locator(".close-icon")).toBeVisible();
-    await page.locator(".close-icon").click();
+    await closeInstagramPopup(page);
   });
   test("DN-001 Should have title and button visibility", async ({ page }) => {
     const recommendedDogsButton = page.getByRole("button", {

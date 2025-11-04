@@ -1,18 +1,17 @@
 import { test, expect } from "@playwright/test";
+import { applyCookies, closeInstagramPopup, logIn } from "../login-functions";
 
 test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
   test.beforeEach(async ({ page }) => {
     // Go to the starting url before each test.
     await page.goto("/login");
-    await page.getByRole("button", { name: "Я погоджуюсь" }).click();
-    await page.getByRole("list").getByText("Увійти");
-    await page.getByRole("textbox", { name: "Телефон" }).fill("950419402");
-    await page.getByRole("textbox", { name: "Пароль" }).fill("11111111");
-    await page.getByRole("button", { name: "Увійти" }).click();
+
+    await applyCookies(page);
+
+    await logIn(page);
 
     // close Instagram popup if visible
-    await expect(page.locator(".close-icon")).toBeVisible();
-    await page.locator(".close-icon").click();
+    await closeInstagramPopup(page);
   });
   test("DN-003 Create post", async ({ page }) => {
     const addPostButton = page.getByRole("button", {
@@ -38,25 +37,33 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await expect(page.getByText("Створення публікації")).toBeHidden();
   });
 
-  test.only("Add post with photo", async ({ page }) => {
+  test("DN-004 Add and Delete post with photo, ", async ({ page }) => {
+    // Set variables for locators
     const addPostButton = page.getByRole("button", {
       name: " Додати Пост ",
     });
     const addPhotoButton = page.locator(".add-photo-btn");
     const publishButton = page.getByRole("button", { name: "ОПУБЛІКУВАТИ" });
-    const filePath = "tests/assets/dog-photo.jpg";
 
+    // Check Add Post button
+    await expect(addPostButton).toHaveCSS(
+      "background-color",
+      "rgb(255, 217, 118)"
+    );
+    await expect(addPostButton).toHaveCSS("color", "rgb(21, 58, 114)");
     await addPostButton.click();
 
+    // Check Add Photo button
+    await expect(addPhotoButton).toHaveCSS("color", "rgb(173, 190, 216)");
     await addPhotoButton.click();
 
-    // Знаходимо реальний input, який використовує кнопка
+    // Find the actual input used by Add Photo button
     const fileInput = page.locator('input[type="file"]');
 
-    // Встановлюємо файл без відкриття діалогу
+    // Add a file without opening a dialog box
     await fileInput.setInputFiles("fixtures/dog-photo-original.jpg");
 
-    // Перевіряємо, що фото додано
+    // Check that the photo is added and "ОПУБЛІКУВАТИ" button change color
     await expect(page.locator(".photo-preview")).toBeVisible();
     await expect(publishButton).toHaveCSS(
       "background-color",
@@ -67,6 +74,7 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     const postText = "This is a test post with photo.";
     await page.getByRole("textbox").fill(postText);
     await expect(page.getByRole("textbox")).toHaveValue(postText);
+
     // Publish the post
     await publishButton.click();
 
