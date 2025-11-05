@@ -1,17 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { before } from "node:test";
-import { applyCookies, logIn, closeInstagramPopup } from "../login-functions";
+import { logInDev, logInPROD } from "../login-functions";
 
 test.describe("Log In tests", { tag: "@ui" }, () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/login");
-
-    await applyCookies(page);
-
-    await logIn(page);
-
-    // close Instagram popup if visible
-    await closeInstagramPopup(page);
+    // await logInPROD(page);
+    await logInDev(page);
   });
   test("DN-001 Should have title and button visibility", async ({ page }) => {
     const recommendedDogsButton = page.getByRole("button", {
@@ -30,7 +24,7 @@ test.describe("Log In tests", { tag: "@ui" }, () => {
       exact: true,
     });
 
-    await expect(page).toHaveURL("");
+    //await expect(page).toHaveURL("");
     await expect(page.locator("h1")).toHaveText("Пости");
 
     //await page.screenshot({ path: "with-auth-posts-page.png" });

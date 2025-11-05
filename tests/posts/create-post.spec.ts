@@ -1,17 +1,21 @@
 import { test, expect } from "@playwright/test";
-import { applyCookies, closeInstagramPopup, logIn } from "../login-functions";
+import { logInDev, logInPROD } from "../login-functions";
+import {
+  uploadPhotoFromFixture,
+  deletePost,
+  closeSuccessPostNotification,
+  clickOnPublishButton,
+  clickOnAddPhotoButton,
+  clickOnAddPostButton,
+} from "./posts-functions";
 
 test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
   test.beforeEach(async ({ page }) => {
-    // Go to the starting url before each test.
-    await page.goto("/login");
-
-    await applyCookies(page);
-
-    await logIn(page);
-
-    // close Instagram popup if visible
-    await closeInstagramPopup(page);
+    //
+    // await logInPROD(page);
+    //
+    await logInDev(page);
+    //
   });
   test("DN-003 Create post", async ({ page }) => {
     const addPostButton = page.getByRole("button", {
@@ -51,17 +55,13 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
       "rgb(255, 217, 118)"
     );
     await expect(addPostButton).toHaveCSS("color", "rgb(21, 58, 114)");
-    await addPostButton.click();
+    await clickOnAddPostButton(page);
 
     // Check Add Photo button
     await expect(addPhotoButton).toHaveCSS("color", "rgb(173, 190, 216)");
-    await addPhotoButton.click();
+    await clickOnAddPhotoButton(page);
 
-    // Find the actual input used by Add Photo button
-    const fileInput = page.locator('input[type="file"]');
-
-    // Add a file without opening a dialog box
-    await fileInput.setInputFiles("fixtures/dog-photo-original.jpg");
+    await uploadPhotoFromFixture(page);
 
     // Check that the photo is added and "ОПУБЛІКУВАТИ" button change color
     await expect(page.locator(".photo-preview")).toBeVisible();
@@ -76,34 +76,16 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await expect(page.getByRole("textbox")).toHaveValue(postText);
 
     // Publish the post
-    await publishButton.click();
+    await clickOnPublishButton(page);
 
     // Verify post is published
-    await page
-      .getByText("Ваш пост успішно опубліковано!")
-      .waitFor({ state: "visible" });
-    await expect(page.locator(".close-icon")).toBeVisible();
-    await page.locator(".close-icon").click();
-
-    await page
-      .getByText("Ваш пост успішно опубліковано!")
-      .waitFor({ state: "hidden" });
+    await closeSuccessPostNotification(page);
 
     // Delete the created post to clean up
     const profileDogLink = page.locator("#menu-bar").getByRole("link", {
       name: "Профіль Собаки",
     });
     await profileDogLink.click();
-    await page.locator("//app-pet-page-publications-tab/ul/li[1]").click();
-    await expect(page.locator("img.post-image")).toBeVisible();
-    await page.getByRole("button").nth(3).click();
-
-    await expect(
-      page.getByText("Ви впевнені, що хочете видалити цей пост?")
-    ).toBeVisible();
-    await page.getByRole("button", { name: "ВИДАЛИТИ" }).click();
-    await expect(
-      page.getByText("Ви впевнені, що хочете видалити цей пост?")
-    ).toBeHidden();
+    await deletePost(page);
   });
 });
