@@ -88,4 +88,48 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await profileDogLink.click();
     await deletePost(page);
   });
+  test.only("DN-006 Edit post", async ({ page }) => {
+    await clickOnAddPostButton(page);
+    await clickOnAddPhotoButton(page);
+    await uploadPhotoFromFixture(page);
+
+    // Add text to the post
+    const postText = "This is a test post with photo.";
+    await page.getByRole("textbox").fill(postText);
+    await expect(page.getByRole("textbox")).toHaveValue(postText);
+
+    // Publish post
+    await clickOnPublishButton(page);
+    await closeSuccessPostNotification(page);
+
+    // Go to profile
+    const profileDogLink = page.locator("#menu-bar").getByRole("link", {
+      name: "Профіль Собаки",
+    });
+    await profileDogLink.click();
+
+    // Open Last post
+    await page.locator("//app-pet-page-publications-tab/ul/li[1]").click();
+    await expect(page.locator("img.post-image")).toBeVisible();
+
+    await expect(page.getByText(postText)).toBeVisible();
+    await expect(page.locator(".edit-btn")).toBeVisible();
+    await page.locator(".edit-btn").click();
+
+    await expect(page.getByText("Редагування поста")).toBeVisible();
+    await expect(page.locator("form").getByRole("textbox")).toHaveValue(
+      postText
+    );
+    await page.locator("form").getByRole("textbox").fill("New Text");
+
+    await clickOnPublishButton(page);
+
+    await expect(page.locator("img.post-image")).toBeVisible();
+    await expect(page.locator("form").getByRole("textbox")).toHaveValue(
+      "New Text"
+    );
+    await page.getByRole("button").nth(1).click();
+
+    await deletePost(page);
+  });
 });
