@@ -12,7 +12,18 @@
   "author": "Olena Lisova",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.56.0",
+    "@playwright/test": "^1.57.0",
     "@types/node": "^24.7.1"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests/issues"
+  },
+  "homepage": "https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests#readme"
 }

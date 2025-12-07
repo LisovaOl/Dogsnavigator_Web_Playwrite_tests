@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 import { logInDev, logInPROD } from "../login-functions";
 import {
   uploadPhotoFromFixture,
@@ -7,6 +7,7 @@ import {
   clickOnPublishButton,
   clickOnAddPhotoButton,
   clickOnAddPostButton,
+  findPostByAuthor,
 } from "./posts-functions";
 
 test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
@@ -88,7 +89,7 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await profileDogLink.click();
     await deletePost(page);
   });
-  test.only("DN-006 Edit post", async ({ page }) => {
+  test("DN-006 Edit post", async ({ page }) => {
     await clickOnAddPostButton(page);
     await clickOnAddPhotoButton(page);
     await uploadPhotoFromFixture(page);
@@ -131,5 +132,8 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await page.getByRole("button").nth(1).click();
 
     await deletePost(page);
+  });
+  test.only("Get Author", async ({ page }) => {
+    await findPostByAuthor(page, "Леді");
   });
 });
