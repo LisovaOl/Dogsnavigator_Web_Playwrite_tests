@@ -1,0 +1,4 @@
+
+$env:ENV="dev"; npx playwright test
+
+$env:ENV="prod"; npx playwright test

@@ -1,12 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { before } from "node:test";
-import { logInDev, logInPROD } from "../login-functions";
+import { test, expect } from "../../fixtures/auth.fixture";
+// import { before } from "node:test";
+// import { logInDev, logInPROD } from "../login-functions";
 
 test.describe("Log In tests", { tag: "@ui" }, () => {
-  test.beforeEach(async ({ page }) => {
-    // await logInPROD(page);
-    await logInDev(page);
-  });
+  //   test.beforeEach(async ({ page }) => {
+  //     // await logInPROD(page);
+  //     await logInDev(page);
+  //   });
   test("DN-001 Should have title and button visibility", async ({ page }) => {
     const recommendedDogsButton = page.getByRole("button", {
       name: "Рекомендовані",

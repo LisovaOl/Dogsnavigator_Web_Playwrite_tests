@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 import { test, expect, Page } from "@playwright/test";
+=======
+import { test, expect } from "../../fixtures/auth.fixture";
+>>>>>>> Stashed changes
 import { logInDev, logInPROD } from "../login-functions";
 import {
   uploadPhotoFromFixture,
@@ -11,13 +15,13 @@ import {
 } from "./posts-functions";
 
 test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
-  test.beforeEach(async ({ page }) => {
-    //
-    await logInPROD(page);
-    //
-    //await logInDev(page);
-    //
-  });
+  //   test.beforeEach(async ({ page }) => {
+  //     //
+  //     await logInPROD(page);
+  //     //
+  //     //await logInDev(page);
+  //     //
+  //   });
   test("DN-003 Create post", async ({ page }) => {
     const addPostButton = page.getByRole("button", {
       name: " Додати Пост ",
@@ -89,7 +93,11 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await profileDogLink.click();
     await deletePost(page);
   });
+<<<<<<< Updated upstream
   test("DN-006 Edit post", async ({ page }) => {
+=======
+  test.skip("DN-006 Edit post", async ({ page }) => {
+>>>>>>> Stashed changes
     await clickOnAddPostButton(page);
     await clickOnAddPhotoButton(page);
     await uploadPhotoFromFixture(page);

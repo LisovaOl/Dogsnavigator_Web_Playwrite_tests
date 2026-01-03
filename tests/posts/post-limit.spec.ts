@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../../fixtures/auth.fixture";
 import { logInPROD, logInDev } from "../login-functions";
 import {
   uploadPhotoFromFixture,
@@ -13,13 +13,13 @@ test.describe(
   "Create Post tests. Ensure limit of 5 photo posts triggers notification",
   { tag: ["@functional", "@ui"] },
   () => {
-    test.beforeEach(async ({ page }) => {
-      //
-      await logInPROD(page);
-      //
-      //await logInDev(page);
-      //
-    });
+    // test.beforeEach(async ({ page }) => {
+    //   //
+    //   await logInPROD(page);
+    //   //
+    //   //await logInDev(page);
+    //   //
+    // });
     test("DN-005 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {

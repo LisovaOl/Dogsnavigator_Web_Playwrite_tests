@@ -15,6 +15,7 @@
     "@playwright/test": "^1.57.0",
     "@types/node": "^24.7.1"
   },
+<<<<<<< Updated upstream
   "directories": {
     "test": "tests"
   },
@@ -26,4 +27,9 @@
     "url": "https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests/issues"
   },
   "homepage": "https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests#readme"
+=======
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+>>>>>>> Stashed changes
 }
