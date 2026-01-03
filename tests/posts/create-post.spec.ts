@@ -12,9 +12,9 @@ import {
 test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
   test.beforeEach(async ({ page }) => {
     //
-    // await logInPROD(page);
+    await logInPROD(page);
     //
-    await logInDev(page);
+    //await logInDev(page);
     //
   });
   test("DN-003 Create post", async ({ page }) => {

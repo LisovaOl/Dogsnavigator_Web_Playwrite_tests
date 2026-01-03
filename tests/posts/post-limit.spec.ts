@@ -15,9 +15,9 @@ test.describe(
   () => {
     test.beforeEach(async ({ page }) => {
       //
-      // await logInPROD(page);
+      await logInPROD(page);
       //
-      await logInDev(page);
+      //await logInDev(page);
       //
     });
     test("DN-005 Verify notification when adding more than 5 posts with photos", async ({
