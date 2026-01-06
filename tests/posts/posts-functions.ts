@@ -60,7 +60,7 @@ async function loadAllPostsWithScroll(page: Page) {
   let previousCount = 0;
   let sameCountIterations = 0;
 
-  while (sameCountIterations < 10) {
+  while (sameCountIterations < 5) {
     const posts = page.locator("li.post");
     const count = await posts.count();
     console.log("POSTS COUNT NOW:", count);

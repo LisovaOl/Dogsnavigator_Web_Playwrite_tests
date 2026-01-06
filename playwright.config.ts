@@ -47,6 +47,11 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         baseURL: "https://admin:dev@dogsnavigator.terenbro.com",
+        geolocation: {
+          latitude: 50.4501,
+          longitude: 30.5234,
+        },
+        permissions: ["geolocation"],
       },
     },
 

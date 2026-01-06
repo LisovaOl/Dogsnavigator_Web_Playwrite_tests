@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-import { test, expect, Page } from "@playwright/test";
-=======
 import { test, expect } from "../../fixtures/auth.fixture";
->>>>>>> Stashed changes
-import { logInDev, logInPROD } from "../login-functions";
 import {
   uploadPhotoFromFixture,
   deletePost,
@@ -93,11 +88,7 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
     await profileDogLink.click();
     await deletePost(page);
   });
-<<<<<<< Updated upstream
   test("DN-006 Edit post", async ({ page }) => {
-=======
-  test.skip("DN-006 Edit post", async ({ page }) => {
->>>>>>> Stashed changes
     await clickOnAddPostButton(page);
     await clickOnAddPhotoButton(page);
     await uploadPhotoFromFixture(page);
@@ -141,7 +132,7 @@ test.describe("Create Post tests", { tag: ["@functional", "@ui"] }, () => {
 
     await deletePost(page);
   });
-  test.only("Get Author", async ({ page }) => {
-    await findPostByAuthor(page, "Леді");
-  });
+  // test.only("Get Author", async ({ page }) => {
+  //   await findPostByAuthor(page, "Topik");
+  // });
 });
