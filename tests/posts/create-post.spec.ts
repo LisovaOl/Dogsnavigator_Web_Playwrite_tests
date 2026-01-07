@@ -72,7 +72,7 @@ test.describe(
       await addPost.deletePost(page);
     });
 
-    test("DN-006 Add, Edit Text and Delete post", async ({ page }) => {
+    test("DN-005 Add, Edit Text and Delete post", async ({ page }) => {
       const addPost = new Post(page);
 
       await addPost.clickOnAddPostButton();
@@ -116,7 +116,7 @@ test.describe(
       // Delete the created post to clean up
       await addPost.deletePost(page);
     });
-    test("DN-005 Verify notification when adding more than 5 posts with photos", async ({
+    test("DN-006 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {
       const addPost = new Post(page);
