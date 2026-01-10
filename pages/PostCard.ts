@@ -35,7 +35,7 @@ export class PostCard {
     await this.likeButton.click();
   }
 
-  async openComments(): Promise<void> {
+  async addComments(): Promise<void> {
     await this.commentButton.click();
   }
 

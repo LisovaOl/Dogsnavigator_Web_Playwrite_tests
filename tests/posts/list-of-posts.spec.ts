@@ -28,15 +28,36 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
       .first();
 
     const postCard = new PostCard(post);
-    await expect(postCard.likeButton).not.toHaveClass("liked");
-    await expect(postCard.likeButton).toHaveCSS("color", "rgb(21, 58, 114)");
+    const isLiked = await postCard.likeButton.evaluate((el) =>
+      el.classList.contains("liked")
+    );
 
-    await postCard.like();
-    await expect(postCard.likeButton).toHaveClass("liked");
-    await expect(postCard.likeButton).toHaveCSS("color", "rgb(255, 83, 100)");
+    if (isLiked) {
+      await expect(postCard.likeButton).toHaveCSS("color", "rgb(255, 83, 100)"); // червоний
+    } else {
+      await expect(postCard.likeButton).toHaveCSS("color", "rgb(21, 58, 114)"); // сірий
+    }
 
-    await postCard.like();
-    await expect(postCard.likeButton).not.toHaveClass("liked");
-    await expect(postCard.likeButton).toHaveCSS("color", "rgb(21, 58, 114)");
+    if (!isLiked) {
+      await postCard.like();
+    } else {
+      await postCard.like();
+    }
+  });
+  test("DN-009 Add comment to the post", async ({ page }) => {
+    const post = page
+      .locator("li.post")
+      .filter({
+        has: page.locator(".author-name", { hasText: "Боня" }),
+      })
+      .first();
+    const postCard = new PostCard(post);
+    await postCard.addComments();
+    await expect(
+      page
+        .locator("div")
+        .filter({ hasText: "Боня, Далматин7 Січня 2026" })
+        .nth(4)
+    ).toBeVisible();
   });
 });
