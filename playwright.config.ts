@@ -47,12 +47,12 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         baseURL: process.env.BASE_URL,
-        httpCredentials: process.env.BASIC_USER
-          ? {
-              username: process.env.BASIC_USER,
-              password: process.env.BASIC_PASS!,
-            }
-          : undefined,
+        // httpCredentials: process.env.BASIC_USER
+        //   ? {
+        //       username: process.env.BASIC_USER,
+        //       password: process.env.BASIC_PASS!,
+        //     }
+        //   : undefined,
         geolocation: {
           latitude: 50.4501,
           longitude: 30.5234,

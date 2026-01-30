@@ -25,8 +25,8 @@ jobs:
       - name: Run Playwright tests
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
-          BASIC_USER: ${{ secrets.BASIC_USER }}
-          BASIC_PASS: ${{ secrets.BASIC_PASS }}
+          # BASIC_USER: ${{ secrets.BASIC_USER }}
+          # BASIC_PASS: ${{ secrets.BASIC_PASS }}
         run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
