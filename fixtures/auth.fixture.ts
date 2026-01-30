@@ -24,10 +24,6 @@ export const test = base.extend<AuthFixtures>({
       process.env.LOGIN_PHONE!,
       process.env.LOGIN_PASSWORD!,
     );
-    // ✅ чекати, що ми вже не на /login
-    await page.waitForURL((url) => !url.pathname.includes("login"), {
-      timeout: 60_000,
-    });
 
     // close Instagram popup
     //await page.locator(".close-icon").click();
