@@ -4,6 +4,13 @@ import { PostCard } from "../../pages/PostCard";
 
 test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
   test("DN-007 Scroll the list of posts", async ({ page }) => {
+    // close Instagram popup
+    //await page.locator(".close-icon").click();
+    const close = page.locator(".close-icon").first();
+    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await close.click();
+    }
+
     const authorName = "Боня";
 
     const authorPosts = await findPostByAuthor(page, authorName);
@@ -20,6 +27,13 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
   });
 
   test("DN-008 Like and dislike post", async ({ page }) => {
+    // close Instagram popup
+    //await page.locator(".close-icon").click();
+    const close = page.locator(".close-icon").first();
+    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await close.click();
+    }
+
     const post = page
       .locator("li.post")
       .filter({
@@ -45,6 +59,13 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
     }
   });
   test("DN-009 Add comment to the post", async ({ page }) => {
+    // close Instagram popup
+    //await page.locator(".close-icon").click();
+    const close = page.locator(".close-icon").first();
+    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await close.click();
+    }
+
     const post = page
       .locator("li.post")
       .filter({

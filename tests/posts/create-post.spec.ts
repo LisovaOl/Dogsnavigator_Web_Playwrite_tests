@@ -9,14 +9,21 @@ test.describe(
   { tag: ["@functional", "@ui"] },
   () => {
     test("DN-003 Verify create post popup-UI", async ({ page }) => {
+      // close Instagram popup
+      //await page.locator(".close-icon").click();
+      const close = page.locator(".close-icon").first();
+      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await close.click();
+      }
+
       const addPost = new Post(page);
       await expect(addPost.addPostButton).toHaveCSS(
         "background-color",
-        "rgb(255, 217, 118)"
+        "rgb(255, 217, 118)",
       );
       await expect(addPost.addPostButton).toHaveCSS(
         "color",
-        "rgb(21, 58, 114)"
+        "rgb(21, 58, 114)",
       );
 
       await addPost.clickOnAddPostButton();
@@ -27,15 +34,15 @@ test.describe(
       await expect(addPost.publishButton).toBeVisible();
       await expect(addPost.publishButton).toHaveCSS(
         "background-color",
-        "rgb(173, 190, 216)"
+        "rgb(173, 190, 216)",
       );
       await expect(addPost.publishButton).toHaveCSS(
         "color",
-        "rgb(255, 255, 255)"
+        "rgb(255, 255, 255)",
       );
       await expect(addPost.addPhotoButton).toHaveCSS(
         "color",
-        "rgb(173, 190, 216)"
+        "rgb(173, 190, 216)",
       );
 
       await addPost.closeButton.click();
@@ -43,6 +50,13 @@ test.describe(
     });
 
     test("DN-004 Add and Delete post with photo and text", async ({ page }) => {
+      // close Instagram popup
+      //await page.locator(".close-icon").click();
+      const close = page.locator(".close-icon").first();
+      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await close.click();
+      }
+
       const addPost = new Post(page);
       await addPost.clickOnAddPostButton();
       await addPost.clickOnAddPhotoButton();
@@ -53,7 +67,7 @@ test.describe(
       await expect(page.locator(".photo-preview")).toBeVisible();
       await expect(addPost.publishButton).toHaveCSS(
         "background-color",
-        "rgb(255, 217, 118)"
+        "rgb(255, 217, 118)",
       );
 
       // Add text to the post
@@ -73,6 +87,13 @@ test.describe(
     });
 
     test("DN-005 Add, Edit Text and Delete post", async ({ page }) => {
+      // close Instagram popup
+      //await page.locator(".close-icon").click();
+      const close = page.locator(".close-icon").first();
+      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await close.click();
+      }
+
       const addPost = new Post(page);
 
       await addPost.clickOnAddPostButton();
@@ -101,7 +122,7 @@ test.describe(
 
       await expect(page.getByText("Редагування поста")).toBeVisible();
       await expect(page.locator("form").getByRole("textbox")).toHaveValue(
-        postText
+        postText,
       );
       await page.locator("form").getByRole("textbox").fill("New Text");
 
@@ -109,7 +130,7 @@ test.describe(
 
       await expect(page.locator("img.post-image")).toBeVisible();
       await expect(page.locator("form").getByRole("textbox")).toHaveValue(
-        "New Text"
+        "New Text",
       );
       await page.getByRole("button").nth(1).click();
 
@@ -119,6 +140,13 @@ test.describe(
     test("DN-006 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {
+      // close Instagram popup
+      //await page.locator(".close-icon").click();
+      const close = page.locator(".close-icon").first();
+      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await close.click();
+      }
+
       const addPost = new Post(page);
 
       // Add 5 posts
@@ -162,5 +190,5 @@ test.describe(
     // test.only("Get Author", async ({ page }) => {
     //   await findPostByAuthor(page, "Topik");
     // });
-  }
+  },
 );
