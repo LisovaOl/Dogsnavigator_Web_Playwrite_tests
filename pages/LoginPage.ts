@@ -26,9 +26,26 @@ export class LoginPage {
   async login(phone: string, password: string): Promise<void> {
     await this.phoneInput.fill(phone);
     await this.passwordInput.fill(password);
-    await this.submitButton.click();
-    await this.page.waitForURL((url) => !url.pathname.includes("login"), {
-      timeout: 60_000,
-    });
+
+    await Promise.all([
+      this.submitButton.click(),
+      this.page.waitForLoadState("domcontentloaded"),
+    ]);
+
+    // ✅ чекати маркер успіху (вибери реальний елемент)
+    await this.page
+      .locator("li.post, .create-post, nav.sidebar")
+      .first()
+      .waitFor({
+        state: "visible",
+        timeout: 60_000,
+      });
+
+    // ❗ якщо все ще на login — явно падаємо з зрозумілим текстом
+    if (this.page.url().includes("/login")) {
+      throw new Error(
+        `Login did not complete. Still on login page: ${this.page.url()}`,
+      );
+    }
   }
 }
