@@ -24,7 +24,11 @@ export const test = base.extend<AuthFixtures>({
       process.env.LOGIN_PHONE!,
       process.env.LOGIN_PASSWORD!,
     );
-
+    await expect(
+      page.getByRole("button", { name: "Рекомендовані" }),
+    ).toBeVisible({
+      timeout: 60_000,
+    });
     // // close Instagram popup
     // //await page.locator(".close-icon").click();
     // const close = page.locator(".close-icon").first();
