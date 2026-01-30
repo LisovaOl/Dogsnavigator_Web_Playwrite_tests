@@ -18,16 +18,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
-        run: npx playwright install --only-shell --with-deps chromium
+        run: npx playwright install --with-deps chromium
       # 🔍 DEBUG STEP — ТУТ
       - name: Debug env (safe)
-        run: node -e "console.log('HAS_BASE_URL=', !!process.env.BASE_URL)"
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+          LOGIN_PHONE: ${{ secrets.LOGIN_PHONE }}
+          LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+        run: |
+          node -e "console.log('HAS_BASE_URL=', !!process.env.BASE_URL)"
+          node -e "console.log('HAS_LOGIN_PHONE=', !!process.env.LOGIN_PHONE)"
+          node -e "console.log('HAS_LOGIN_PASSWORD=', !!process.env.LOGIN_PASSWORD)"
       - name: Run Playwright tests
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           LOGIN_PHONE: ${{ secrets.LOGIN_PHONE }}
           LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
-
         run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
