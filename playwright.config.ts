@@ -14,8 +14,8 @@ if (!isCI) {
   dotenv.config({ path: `.env.${env}` });
 }
 
-console.log("ENV:", env);
-console.log("BASE_URL:", process.env.BASE_URL);
+// console.log("ENV:", env);
+// console.log("BASE_URL:", process.env.BASE_URL);
 
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
