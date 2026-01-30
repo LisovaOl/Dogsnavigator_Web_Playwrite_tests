@@ -7,6 +7,7 @@ export class LoginPage {
   private readonly phoneInput: Locator;
   private readonly passwordInput: Locator;
   private readonly submitButton: Locator;
+  getByText: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -14,6 +15,7 @@ export class LoginPage {
     this.phoneInput = page.locator("#phone");
     this.passwordInput = page.locator("#password");
     this.submitButton = page.locator('button[type="submit"]');
+    this.getByText = page.getByRole("button", { name: " Рекомендовані " });
   }
 
   // Open login page
@@ -29,8 +31,15 @@ export class LoginPage {
     await this.submitButton.click();
 
     // форма логіну має зникнути
-    await expect(this.submitButton).toBeHidden({ timeout: 60_000 });
+    //await expect(this.submitButton).toBeHidden({ timeout: 60_000 });
 
+    // Пости мають бути видимі
+    await expect(this.getByText).toBeVisible();
+    // чекати, що зʼявилась кнопка/таб "Рекомендовані"
+    // await this.page.getByRole("button", { name: "Рекомендовані" }).waitFor({
+    //   state: "visible",
+    //   timeout: 60_000,
+    // });
     // await Promise.all([
     //   this.submitButton.click(),
 
