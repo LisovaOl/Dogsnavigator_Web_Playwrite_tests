@@ -26,8 +26,11 @@ export class LoginPage {
 
   // Perform login
   async login(phone: string, password: string): Promise<void> {
-    await this.phoneInput.fill(phone);
-    await this.passwordInput.fill(password);
+    await this.phoneInput.pressSequentially(phone, { delay: 100 });
+    await this.passwordInput.pressSequentially(password, { delay: 100 });
+
+    //await this.phoneInput.fill(phone);
+    //await this.passwordInput.fill(password);
     await this.submitButton.click();
 
     // форма логіну має зникнути
