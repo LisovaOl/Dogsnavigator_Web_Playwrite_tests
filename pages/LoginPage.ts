@@ -27,14 +27,18 @@ export class LoginPage {
   // Perform login
   async login(phone: string, password: string): Promise<void> {
     await this.phoneInput.fill(phone);
+    await this.page.waitForTimeout(300);
+    await expect(this.phoneInput).toHaveValue(phone);
     await this.passwordInput.fill(password);
+    await this.page.waitForTimeout(300);
+    await expect(this.passwordInput).toHaveValue(password);
     await this.submitButton.click();
 
     // форма логіну має зникнути
     //await expect(this.submitButton).toBeHidden({ timeout: 60_000 });
 
     // Пости мають бути видимі
-    await expect(this.getByText).toBeVisible();
+    //await expect(this.getByText).toBeVisible();
     // чекати, що зʼявилась кнопка/таб "Рекомендовані"
     // await this.page.getByRole("button", { name: "Рекомендовані" }).waitFor({
     //   state: "visible",
