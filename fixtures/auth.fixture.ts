@@ -13,19 +13,27 @@ export const test = base.extend<AuthFixtures>({
     await loginPage.open();
 
     // Accept cookies
-    const acceptCookies = page.getByRole("button", { name: "Я погоджуюсь" });
-    if (await acceptCookies.isVisible({ timeout: 3000 })) {
-      await acceptCookies.click();
+    const acceptCookies = page
+      .getByRole("button", { name: "Я погоджуюсь" })
+      .first();
+    if (await acceptCookies.isVisible().catch(() => false)) {
+      await acceptCookies.click({ timeout: 5000 }).catch(() => {});
     }
-
     // Login
     await loginPage.login(
       process.env.LOGIN_PHONE!,
-      process.env.LOGIN_PASSWORD!
+      process.env.LOGIN_PASSWORD!,
     );
+    await expect(page.locator("li.post").first()).toBeVisible({
+      timeout: 60_000,
+    });
 
     // close Instagram popup
-    await page.locator(".close-icon").click();
+    //await page.locator(".close-icon").click();
+    const close = page.locator(".close-icon").first();
+    if (await close.isVisible().catch(() => false)) {
+      await close.click();
+    }
 
     await use(page);
   },
