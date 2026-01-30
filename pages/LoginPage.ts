@@ -27,5 +27,8 @@ export class LoginPage {
     await this.phoneInput.fill(phone);
     await this.passwordInput.fill(password);
     await this.submitButton.click();
+    await this.page.waitForURL((url) => !url.pathname.includes("login"), {
+      timeout: 60_000,
+    });
   }
 }

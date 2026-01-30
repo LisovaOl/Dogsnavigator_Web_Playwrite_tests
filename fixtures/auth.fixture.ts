@@ -24,7 +24,8 @@ export const test = base.extend<AuthFixtures>({
       process.env.LOGIN_PHONE!,
       process.env.LOGIN_PASSWORD!,
     );
-    await expect(page.locator("li.post").first()).toBeVisible({
+    // ✅ чекати, що ми вже не на /login
+    await page.waitForURL((url) => !url.pathname.includes("login"), {
       timeout: 60_000,
     });
 
@@ -36,7 +37,7 @@ export const test = base.extend<AuthFixtures>({
     }
 
     await use(page);
-  },
+  };,
 });
 
 export { expect };

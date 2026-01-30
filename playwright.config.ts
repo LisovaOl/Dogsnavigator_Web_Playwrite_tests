@@ -7,10 +7,15 @@ import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
 const env = process.env.ENV || "dev";
-dotenv.config({ path: `.env.${env}` });
+const isCI = !!process.env.CI;
+
+// ✅ dotenv тільки локально
+if (!isCI) {
+  dotenv.config({ path: `.env.${env}` });
+}
+
 console.log("ENV:", env);
 console.log("BASE_URL:", process.env.BASE_URL);
-const isCI = !!process.env.CI;
 
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
