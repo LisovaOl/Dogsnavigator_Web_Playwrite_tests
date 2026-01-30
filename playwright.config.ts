@@ -6,7 +6,7 @@ import { defineConfig, devices } from "@playwright/test";
  */
 import dotenv from "dotenv";
 
-const env = process.env.ENV || "dev";
+const env = process.env.ENV || "prod";
 dotenv.config({ path: `.env.${env}` });
 console.log("ENV:", env);
 console.log("BASE_URL:", process.env.BASE_URL);
