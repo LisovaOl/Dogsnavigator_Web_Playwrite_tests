@@ -4,7 +4,7 @@ import { PostCard } from "../../pages/PostCard";
 
 test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
   test("DN-007 Scroll the list of posts", async ({ page }) => {
-    const authorName = "Бакс";
+    const authorName = "Боня";
 
     const authorPosts = await findPostByAuthor(page, authorName);
 
@@ -29,7 +29,7 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
 
     const postCard = new PostCard(post);
     const isLiked = await postCard.likeButton.evaluate((el) =>
-      el.classList.contains("liked")
+      el.classList.contains("liked"),
     );
 
     if (isLiked) {
@@ -57,7 +57,7 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
       page
         .locator("div")
         .filter({ hasText: "Боня, Далматин7 Січня 2026" })
-        .nth(4)
+        .nth(4),
     ).toBeVisible();
   });
 });
