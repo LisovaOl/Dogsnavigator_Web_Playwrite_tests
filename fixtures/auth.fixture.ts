@@ -28,10 +28,12 @@ export const test = base.extend<AuthFixtures>({
     // close Instagram popup
     //await page.locator(".close-icon").click();
     const close = page.locator(".close-icon").first();
-    if (await close.isVisible().catch(() => false)) {
+    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
       await close.click();
     }
-
+    await expect(close.first()).toBeHidden({
+      timeout: 5000,
+    });
     await use(page);
   },
 });
