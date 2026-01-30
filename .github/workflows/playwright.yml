@@ -19,6 +19,9 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --only-shell --with-deps chromium
+      # 🔍 DEBUG STEP — ТУТ
+      - name: Debug env (safe)
+        run: node -e "console.log('HAS_BASE_URL=', !!process.env.BASE_URL)"
       - name: Run Playwright tests
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
