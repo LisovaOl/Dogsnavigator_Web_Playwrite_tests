@@ -37,7 +37,7 @@ export const test = base.extend<AuthFixtures>({
     }
 
     await use(page);
-  };,
+  },
 });
 
 export { expect };
