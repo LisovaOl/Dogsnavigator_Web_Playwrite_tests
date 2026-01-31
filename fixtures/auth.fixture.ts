@@ -17,7 +17,7 @@ export const test = base.extend<AuthFixtures>({
       .getByRole("button", { name: "Я погоджуюсь" })
       .first();
     if (await acceptCookies.isVisible().catch(() => false)) {
-      await acceptCookies.click({ timeout: 5000 }).catch(() => {});
+      await acceptCookies.click().catch(() => {});
     }
     // Login
     await loginPage.login(
@@ -26,13 +26,11 @@ export const test = base.extend<AuthFixtures>({
     );
     await expect(
       page.getByRole("button", { name: "Рекомендовані" })
-    ).toBeVisible({
-      timeout: 60_000,
-    });
+    ).toBeVisible();
     // close Instagram popup
     //await page.locator(".close-icon").click();
     const close = page.locator(".close-icon").first();
-    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+    if (await close.isVisible().catch(() => false)) {
       await close.click();
     }
     await use(page);
