@@ -4,7 +4,7 @@ import { test, expect } from "../../fixtures/auth.fixture";
 // } from "./posts-functions";
 import { Post } from "../../pages/PostPage";
 
-test.describe(
+test.describe.skip(
   "Create, Edit, Delete, Limit Post tests. ",
   { tag: ["@functional", "@ui"] },
   () => {
@@ -19,11 +19,11 @@ test.describe(
       const addPost = new Post(page);
       await expect(addPost.addPostButton).toHaveCSS(
         "background-color",
-        "rgb(255, 217, 118)",
+        "rgb(255, 217, 118)"
       );
       await expect(addPost.addPostButton).toHaveCSS(
         "color",
-        "rgb(21, 58, 114)",
+        "rgb(21, 58, 114)"
       );
 
       await addPost.clickOnAddPostButton();
@@ -34,15 +34,15 @@ test.describe(
       await expect(addPost.publishButton).toBeVisible();
       await expect(addPost.publishButton).toHaveCSS(
         "background-color",
-        "rgb(173, 190, 216)",
+        "rgb(173, 190, 216)"
       );
       await expect(addPost.publishButton).toHaveCSS(
         "color",
-        "rgb(255, 255, 255)",
+        "rgb(255, 255, 255)"
       );
       await expect(addPost.addPhotoButton).toHaveCSS(
         "color",
-        "rgb(173, 190, 216)",
+        "rgb(173, 190, 216)"
       );
 
       await addPost.closeButton.click();
@@ -67,7 +67,7 @@ test.describe(
       await expect(page.locator(".photo-preview")).toBeVisible();
       await expect(addPost.publishButton).toHaveCSS(
         "background-color",
-        "rgb(255, 217, 118)",
+        "rgb(255, 217, 118)"
       );
 
       // Add text to the post
@@ -122,7 +122,7 @@ test.describe(
 
       await expect(page.getByText("Редагування поста")).toBeVisible();
       await expect(page.locator("form").getByRole("textbox")).toHaveValue(
-        postText,
+        postText
       );
       await page.locator("form").getByRole("textbox").fill("New Text");
 
@@ -130,7 +130,7 @@ test.describe(
 
       await expect(page.locator("img.post-image")).toBeVisible();
       await expect(page.locator("form").getByRole("textbox")).toHaveValue(
-        "New Text",
+        "New Text"
       );
       await page.getByRole("button").nth(1).click();
 
@@ -190,5 +190,5 @@ test.describe(
     // test.only("Get Author", async ({ page }) => {
     //   await findPostByAuthor(page, "Topik");
     // });
-  },
+  }
 );

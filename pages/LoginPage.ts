@@ -20,7 +20,7 @@ export class LoginPage {
 
   // Open login page
   async open(): Promise<void> {
-    await this.page.goto("/login");
+    await this.page.goto("/");
     await expect(this.phoneInput).toBeVisible();
   }
 
