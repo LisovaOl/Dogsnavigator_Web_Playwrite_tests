@@ -2,13 +2,6 @@ import { test, expect } from "../../fixtures/auth.fixture";
 
 test.describe("Log In tests", { tag: "@ui" }, () => {
   test("DN-001 Should have title and button visibility", async ({ page }) => {
-    // close Instagram popup
-    //await page.locator(".close-icon").click();
-    const close = page.locator(".close-icon").first();
-    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await close.click();
-    }
-
     const recommendedDogsButton = page.getByRole("button", {
       name: "Рекомендовані",
     });
@@ -39,13 +32,6 @@ test.describe("Log In tests", { tag: "@ui" }, () => {
 
   // Sidebar
   test("DN-002 Check side bar elements", async ({ page }) => {
-    // close Instagram popup
-    //await page.locator(".close-icon").click();
-    const close = page.locator(".close-icon").first();
-    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-      await close.click();
-    }
-
     const sideBar = page.locator("#menu-bar");
 
     const postsLink = sideBar.getByRole("link", { name: "Пости" });

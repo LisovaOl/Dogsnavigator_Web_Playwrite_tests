@@ -22,19 +22,19 @@ export const test = base.extend<AuthFixtures>({
     // Login
     await loginPage.login(
       process.env.LOGIN_PHONE!,
-      process.env.LOGIN_PASSWORD!,
+      process.env.LOGIN_PASSWORD!
     );
     await expect(
-      page.getByRole("button", { name: "Рекомендовані" }),
+      page.getByRole("button", { name: "Рекомендовані" })
     ).toBeVisible({
       timeout: 60_000,
     });
-    // // close Instagram popup
-    // //await page.locator(".close-icon").click();
-    // const close = page.locator(".close-icon").first();
-    // if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-    //   await close.click();
-    // }
+    // close Instagram popup
+    //await page.locator(".close-icon").click();
+    const close = page.locator(".close-icon").first();
+    if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await close.click();
+    }
     await use(page);
   },
 });

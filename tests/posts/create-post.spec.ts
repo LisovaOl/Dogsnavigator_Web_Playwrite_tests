@@ -9,13 +9,6 @@ test.describe(
   { tag: ["@functional", "@ui"] },
   () => {
     test("DN-003 Verify create post popup-UI", async ({ page }) => {
-      // close Instagram popup
-      //await page.locator(".close-icon").click();
-      const close = page.locator(".close-icon").first();
-      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-        await close.click();
-      }
-
       const addPost = new Post(page);
       await expect(addPost.addPostButton).toHaveCSS(
         "background-color",
@@ -50,13 +43,6 @@ test.describe(
     });
 
     test("DN-004 Add and Delete post with photo and text", async ({ page }) => {
-      // close Instagram popup
-      //await page.locator(".close-icon").click();
-      const close = page.locator(".close-icon").first();
-      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-        await close.click();
-      }
-
       const addPost = new Post(page);
       await addPost.clickOnAddPostButton();
       await addPost.clickOnAddPhotoButton();
@@ -87,13 +73,6 @@ test.describe(
     });
 
     test("DN-005 Add, Edit Text and Delete post", async ({ page }) => {
-      // close Instagram popup
-      //await page.locator(".close-icon").click();
-      const close = page.locator(".close-icon").first();
-      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-        await close.click();
-      }
-
       const addPost = new Post(page);
 
       await addPost.clickOnAddPostButton();
@@ -140,13 +119,6 @@ test.describe(
     test("DN-006 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {
-      // close Instagram popup
-      //await page.locator(".close-icon").click();
-      const close = page.locator(".close-icon").first();
-      if (await close.isVisible({ timeout: 5000 }).catch(() => false)) {
-        await close.click();
-      }
-
       const addPost = new Post(page);
 
       // Add 5 posts
