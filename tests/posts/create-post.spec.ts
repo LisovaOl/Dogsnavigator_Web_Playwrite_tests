@@ -4,7 +4,7 @@ import { test, expect } from "../../fixtures/auth.fixture";
 // } from "./posts-functions";
 import { Post } from "../../pages/PostPage";
 
-test.describe.skip(
+test.describe(
   "Create, Edit, Delete, Limit Post tests. ",
   { tag: ["@functional", "@ui"] },
   () => {
