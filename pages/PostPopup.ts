@@ -3,9 +3,10 @@ import { Locator, Page, expect } from "@playwright/test";
 export class PostPopup {
   readonly root: Locator;
 
-  //myProfile: Locator;
   readonly firstPost: Locator;
   readonly creatorName: Locator;
+  readonly commentText: Locator;
+  readonly emptyCommentsPlaceholder: Locator;
   readonly editBtn: Locator;
   readonly deleteBtn: Locator;
   readonly postImage: Locator;
@@ -18,9 +19,10 @@ export class PostPopup {
 
   constructor(root: Locator) {
     this.root = root;
-    //this.myProfile = root.getByRole("link", { name: "Профіль Собаки" });
     this.firstPost = root.locator("li > img").first();
     this.creatorName = root.locator(".creator-dog-info");
+    this.commentText = root.locator(".comment-text");
+    this.emptyCommentsPlaceholder = root.getByText("Поки Немає Коментарів");
     this.editBtn = root.locator(".edit-btn");
     this.deleteBtn = root.locator(".delete-btn");
     this.postImage = root.locator(".post-image");
@@ -40,11 +42,13 @@ export class PostPopup {
     return (await this.creatorName.textContent())?.trim() ?? "";
   }
 
-  async closeMyPostPost(): Promise<void> {
+  async closeMyPost(): Promise<void> {
     await this.closePopupButton.click();
   }
-  async like(): Promise<void> {
-    await this.likeButton.click();
+  async addComment(text: string) {
+    const commentText = "Test message";
+    await this.commentInputField.fill(text);
+    await this.commentSendButton.click();
   }
 
   async expectTextContains(text: string) {
