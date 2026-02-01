@@ -39,4 +39,6 @@ export class DogAccount {
     // чекати, що збереглось: або toast, або апдейт поля
     await expect(this.dogName).toHaveValue(newName, { timeout: 30_000 });
   }
+
+  // додати перевірку зміну імені у профілі собаки на сайдбарі
 }
