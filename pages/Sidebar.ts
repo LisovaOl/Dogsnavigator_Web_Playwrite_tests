@@ -1,6 +1,6 @@
 import { Page, expect } from "@playwright/test";
 
-export async function goToMyDogProfile(page: Page) {
+export async function goToMyDogProfileFromSidebar(page: Page) {
   await page.getByRole("link", { name: "Профіль Собаки" }).click();
   await expect(page.getByRole("heading", { name: "Мій собака" })).toBeVisible();
 }

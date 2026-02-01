@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { goToMyDogProfile } from "../../pages/Sidebar";
+import { goToMyDogProfileFromSidebar } from "../../pages/Sidebar";
 import { PostPopup } from "../../pages/PostPopup";
 
 test.describe(
@@ -7,7 +7,7 @@ test.describe(
   { tag: ["@functional", "@ui"] },
   () => {
     test("DN-010 Open/Close My Post. UI", async ({ page }) => {
-      await goToMyDogProfile(page);
+      await goToMyDogProfileFromSidebar(page);
 
       const myPostPopup = new PostPopup(page.locator("body"));
 
@@ -20,7 +20,7 @@ test.describe(
       await expect(myPostPopup.postImage).not.toBeVisible();
     });
     test("DN-011 Add / Delete comment in the My Post", async ({ page }) => {
-      await goToMyDogProfile(page);
+      await goToMyDogProfileFromSidebar(page);
 
       const myPostPopup = new PostPopup(page.locator("body"));
 
