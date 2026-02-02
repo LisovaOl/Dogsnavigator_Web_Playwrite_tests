@@ -8,16 +8,16 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
     const editDogName = new DogAccount(page);
 
     const currentName = await editDogName.getDogName();
-    //console.log(currentName);
+    console.log(currentName);
 
     const newName = editDogName.makeDifferentName(currentName);
-    //console.log(newName);
+    console.log(newName);
 
     await editDogName.changeDogName(newName);
 
     // return old dog name
     await editDogName.changeDogName(currentName);
-    //console.log(currentName);
+    console.log(currentName);
   });
   //     test("DN-013 Change dog breed", async ({ page }) => {});
 });
