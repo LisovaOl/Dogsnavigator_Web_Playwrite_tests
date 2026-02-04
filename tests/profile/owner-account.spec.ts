@@ -3,7 +3,7 @@ import { goToMyDogProfileFromSidebar, goToProfile } from "../../pages/Sidebar";
 import { OwnerAccount } from "../../pages/OwnerAccount";
 
 test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
-  test("DN-013 Change Owner Name", async ({ page }) => {
+  test("DN-014 Change Owner Name", async ({ page }) => {
     await goToProfile(page);
     const editOwnerName = new OwnerAccount(page);
 
@@ -39,5 +39,14 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
     console.log("Returned name: ", originalOwnerName);
   });
 
-  //     test("DN-013 Change dog breed", async ({ page }) => {});
+  test("DN-015 Change owner city", async ({ page }) => {
+    await goToProfile(page);
+    const editOwnerCity = new OwnerAccount(page);
+
+    await editOwnerCity.goToOwnerAccount();
+    await editOwnerCity.setNewCity(page);
+    await goToProfile(page);
+    await editOwnerCity.goToOwnerAccount();
+    await editOwnerCity.setOldCity(page);
+  });
 });
