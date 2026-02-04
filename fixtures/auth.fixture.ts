@@ -22,17 +22,18 @@ export const test = base.extend<AuthFixtures>({
     // Login
     await loginPage.login(
       process.env.LOGIN_PHONE!,
-      process.env.LOGIN_PASSWORD!
+      process.env.LOGIN_PASSWORD!,
     );
     await expect(
-      page.getByRole("button", { name: "Рекомендовані" })
+      page.getByRole("button", { name: "Рекомендовані" }),
     ).toBeVisible();
     // close Instagram popup
     //await page.locator(".close-icon").click();
-    const close = page.locator(".close-icon").first();
-    if (await close.isVisible().catch(() => false)) {
-      await close.click();
-    }
+    await page.getByRole("checkbox", { name: "Більше не показувати" }).check();
+    await page.locator(".close-icon > use").first().click();
+    // if (await close.isVisible().catch(() => false)) {
+    //   await close.click();
+    //  }
     await use(page);
   },
 });

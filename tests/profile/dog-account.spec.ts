@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { goToProfile } from "../../pages/Sidebar";
+import { goToMyDogProfileFromSidebar, goToProfile } from "../../pages/Sidebar";
 import { DogAccount } from "../../pages/DogAccount";
 
 test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
@@ -7,35 +7,33 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
     await goToProfile(page);
     const editDogName = new DogAccount(page);
 
-    const dogOldName = await editDogName.getDogName();
-    //console.log("name: ", oldName);
+    const name = await editDogName.getDogName();
+    console.log("Original name: ", name);
 
     const currentName = await editDogName.getDogName();
-    //console.log("Current name: ", currentName);
+    console.log("Current name: ", currentName);
 
     const newName = editDogName.makeDifferentName(currentName);
     //console.log("New name: ", newName);
 
     await editDogName.changeDogName(newName);
     //console.log("Current name: ", currentName);
-    //console.log("New name: ", newName);
+    console.log("New name changed: ", newName);
     //console.log("Old name: ", newName);
-    // close Instagram popup
-    //await page.locator(".close-icon").click();
-    const close = page.locator(".close-icon").first();
-    if (await close.isVisible().catch(() => false)) {
-      await close.click();
-    }
+
+    await goToMyDogProfileFromSidebar(page);
+    await expect(page.locator(".pet-name")).toHaveText(newName);
+    console.log("New name on the sidebar: ", newName);
 
     // return old dog name
-    await editDogName.changeDogName(dogOldName);
-    console.log("Old name: ", dogOldName);
+    await goToProfile(page);
+    await editDogName.changeDogName(name);
+    console.log("Old name: ", name);
 
-    // close Instagram popup
-    //await page.locator(".close-icon").click();
-    if (await close.isVisible().catch(() => false)) {
-      await close.click();
-    }
+    await goToMyDogProfileFromSidebar(page);
+    await expect(page.locator(".pet-name")).toHaveText(name);
+    console.log("Returned name: ", name);
   });
+
   //     test("DN-013 Change dog breed", async ({ page }) => {});
 });

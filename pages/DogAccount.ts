@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
-
+import { goToMyDogProfileFromSidebar } from "./Sidebar";
 export class DogAccount {
   private readonly page: Page;
 
