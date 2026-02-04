@@ -7,8 +7,8 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
     await goToProfile(page);
     const editDogName = new DogAccount(page);
 
-    const name = await editDogName.getDogName();
-    console.log("Original name: ", name);
+    const originalDogName = await editDogName.getDogName();
+    console.log("Original name: ", originalDogName);
 
     const currentName = await editDogName.getDogName();
     console.log("Current name: ", currentName);
@@ -27,12 +27,12 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
 
     // return old dog name
     await goToProfile(page);
-    await editDogName.changeDogName(name);
-    console.log("Old name: ", name);
+    await editDogName.changeDogName(originalDogName);
+    console.log("Old name: ", originalDogName);
 
     await goToMyDogProfileFromSidebar(page);
-    await expect(page.locator(".pet-name")).toHaveText(name);
-    console.log("Returned name: ", name);
+    await expect(page.locator(".pet-name")).toHaveText(originalDogName);
+    console.log("Returned name: ", originalDogName);
   });
 
   //     test("DN-013 Change dog breed", async ({ page }) => {});
