@@ -1,0 +1,45 @@
+{
+  "cookies": [
+    {
+      "name": "_fbp",
+      "value": "fb.1.1770308507805.178059219498910784",
+      "domain": ".terenbro.com",
+      "path": "/",
+      "expires": 1778084508,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://dogsnavigator.terenbro.com",
+      "localStorage": [
+        {
+          "name": "lastExternalReferrer",
+          "value": "empty"
+        },
+        {
+          "name": "lastExternalReferrerTime",
+          "value": "1770308507794"
+        },
+        {
+          "name": "cookieConsent",
+          "value": "true"
+        },
+        {
+          "name": "instagram-cta-hidden",
+          "value": "true"
+        },
+        {
+          "name": "user",
+          "value": "{\"id\":5810,\"birthDate\":\"2001-03-29T00:00:00.000+00:00\",\"photo\":\"/images/User_e77d9cee-0847-402a-8809-079491fd76af_photo_1264916250.jpeg\",\"minifiedPhoto\":\"/images/User_e77d9cee-0847-402a-8809-079491fd76af_minifiedPhoto_554193340.jpg\",\"username\":\"Даша\",\"city\":{\"id\":1167,\"region\":{\"id\":61,\"name\":\"Київська область\",\"nameSlugified\":\"kyivska-oblast\"},\"name\":\"Біла Церква\",\"nameSlugified\":\"bila-tserkva\",\"lat\":49.7969703,\"lng\":30.1158069},\"email\":\"lisova.olenka+1@gmail.com\",\"phone\":\"380632822952\",\"dog\":{\"id\":6291,\"name\":\"Лапуся\",\"breed\":{\"id\":265,\"name\":\"Ямтхунд\"},\"sex\":\"female\",\"photo\":\"/images/Dog_aab06a29-39e5-4b5e-b6cc-0a892e673432_photo_1953835763.png\",\"minifiedPhoto\":\"/images/Dog_aab06a29-39e5-4b5e-b6cc-0a892e673432_minifiedPhoto_1365836775.jpg\",\"birthIsoDate\":\"2024-04-22T00:00:00.000+00:00\",\"about\":\"\",\"lookingFor\":\"\",\"addressLng\":30.041927509009838,\"addressLtd\":49.79374333193482,\"walkLng\":null,\"walkLtd\":null,\"walkStartDate\":null,\"other\":[\"likeToPlay\",\"communicativeOwner\"],\"awards\":[]},\"isOnline\":null,\"authdata\":\"MzgwNjMyODIyOTUyOjExMTExMTEx\"}"
+        },
+        {
+          "name": "topicsLastReferenceTime",
+          "value": "1770308508464"
+        }
+      ]
+    }
+  ]
+}
