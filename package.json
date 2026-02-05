@@ -29,6 +29,7 @@
   "homepage": "https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests#readme",
   "dependencies": {
     "create-playwright-seed": "^1.2.0",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "husky-init": "^8.0.0"
   }
 }
