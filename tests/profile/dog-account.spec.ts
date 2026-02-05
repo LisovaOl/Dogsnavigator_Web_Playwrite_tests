@@ -1,6 +1,6 @@
 import { test, expect } from "../../fixtures/auth.fixture";
 import { goToMyDogProfileFromSidebar, goToProfile } from "../../pages/Sidebar";
-import { DogAccount } from "../../pages/DogAccount";
+import { DogAccount, AutocompleteDropdown } from "../../pages/DogAccount";
 
 test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-012 Change Dog Name", async ({ page }) => {
@@ -35,5 +35,11 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
     console.log("Returned name: ", originalDogName);
   });
 
-  //     test("DN-013 Change dog breed", async ({ page }) => {});
+  test("DN-013 Change dog breed", async ({ page }) => {
+    await goToProfile(page);
+    const editDogNBreed = new DogAccount(page);
+    await editDogNBreed.setNewDogBreed(page);
+    await goToProfile(page);
+    await editDogNBreed.setOldDogBreed(page);
+  });
 });
