@@ -1,6 +1,6 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { goToMyDogProfileFromSidebar } from "../../pages/Sidebar";
-import { PostPopup } from "../../pages/PostPopup";
+import { goToMyDogProfileFromSidebar } from "../../../src/pages/Sidebar";
+import { PostPopup } from "../../../src/pages/PostPopup";
 
 test.describe(
   "My Posts. View, Edit, Add comment",
@@ -52,5 +52,5 @@ test.describe(
       await myPostPopup.closeMyPost();
       await expect(myPostPopup.postImage).not.toBeVisible();
     });
-  }
+  },
 );

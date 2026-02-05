@@ -24,18 +24,18 @@ export class Post {
     this.addPhotoButton = page.locator(".add-photo-btn");
     this.publishButton = page.getByRole("button", { name: "ОПУБЛІКУВАТИ" });
     this.successPublishPostNotification = page.getByText(
-      "Ваш пост успішно опубліковано!"
+      "Ваш пост успішно опубліковано!",
     );
     this.closeIcon = page.locator(".close-icon");
     this.closeButton = page.locator(".close-btn");
     this.fileInput = page.locator('input[type="file"]');
     this.deletePostButton = page.getByRole("button").nth(3);
     this.acceptDeleteNotification = page.getByText(
-      "Ви впевнені, що хочете видалити цей пост?"
+      "Ви впевнені, що хочете видалити цей пост?",
     );
     this.acceptDeleteButton = page.getByRole("button", { name: "ВИДАЛИТИ" });
     this.limitPostMessage = page.getByText(
-      "Ви досягли ліміту публікацій на сьогодні. Спробуйте завтра."
+      "Ви досягли ліміту публікацій на сьогодні. Спробуйте завтра.",
     );
   }
   // Click Add Post button
@@ -51,7 +51,9 @@ export class Post {
 
   // Upload file to the post
   async uploadPhotoFromFixture(): Promise<void> {
-    await this.fileInput.setInputFiles("fixtures/dog-photo-original.jpg");
+    await this.fileInput.setInputFiles(
+      "src/test-data/images/dog-photo-original.jpg",
+    );
   }
 
   // Click Publish button
@@ -74,11 +76,11 @@ export class Post {
     await page.getByRole("button").nth(3).click();
 
     await expect(
-      page.getByText("Ви впевнені, що хочете видалити цей пост?")
+      page.getByText("Ви впевнені, що хочете видалити цей пост?"),
     ).toBeVisible();
     await page.getByRole("button", { name: "ВИДАЛИТИ" }).click();
     await expect(
-      page.getByText("Ви впевнені, що хочете видалити цей пост?")
+      page.getByText("Ви впевнені, що хочете видалити цей пост?"),
     ).toBeHidden();
   }
 

@@ -1,6 +1,12 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { goToMyDogProfileFromSidebar, goToProfile } from "../../pages/Sidebar";
-import { DogAccount, AutocompleteDropdown } from "../../pages/DogAccount";
+import {
+  goToMyDogProfileFromSidebar,
+  goToProfile,
+} from "../../../src/pages/Sidebar";
+import {
+  DogAccount,
+  AutocompleteDropdown,
+} from "../../../src/pages/DogAccount";
 
 test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-012 Change Dog Name", async ({ page }) => {

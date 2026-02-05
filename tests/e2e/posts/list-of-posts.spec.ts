@@ -1,6 +1,6 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { findPostByAuthor } from "./posts-functions";
-import { PostCard } from "../../pages/PostCard";
+import { findPostByAuthor } from "../../../src/helpers/posts-functions";
+import { PostCard } from "../../../src/pages/PostCard";
 
 test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
   test("DN-007 Scroll the list of posts", async ({ page }) => {
@@ -29,7 +29,7 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
 
     const postCard = new PostCard(post);
     const isLiked = await postCard.likeButton.evaluate((el) =>
-      el.classList.contains("liked")
+      el.classList.contains("liked"),
     );
 
     if (isLiked) {
@@ -57,7 +57,7 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
       page
         .locator("div")
         .filter({ hasText: "Боня, Далматин7 Січня 2026" })
-        .nth(4)
+        .nth(4),
     ).toBeVisible();
   });
 });

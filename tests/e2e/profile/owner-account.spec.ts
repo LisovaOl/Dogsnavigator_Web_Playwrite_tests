@@ -1,6 +1,9 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { goToMyDogProfileFromSidebar, goToProfile } from "../../pages/Sidebar";
-import { OwnerAccount } from "../../pages/OwnerAccount";
+import {
+  goToMyDogProfileFromSidebar,
+  goToProfile,
+} from "../../../src/pages/Sidebar";
+import { OwnerAccount } from "../../../src/pages/OwnerAccount";
 
 test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-014 Change Owner Name", async ({ page }) => {
