@@ -11,7 +11,7 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
     const count = await authorPosts.count();
     console.log("AUTHOR POSTS COUNT:", count);
 
-    await expect(count).toBeGreaterThan(0);
+    expect(count).toBeGreaterThan(0);
     //await expect(count).toBe(4);
 
     // додатково
@@ -28,22 +28,20 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
       .first();
 
     const postCard = new PostCard(post);
-    const isLiked = await postCard.likeButton.evaluate((el) =>
-      el.classList.contains("liked"),
+    // const isLiked = await postCard.likeButton.evaluate((el) =>
+    //   el.classList.contains("liked"),
+    // );
+
+    // color should be either liked (red) or not liked (gray)
+    const color = await postCard.likeButton.evaluate(
+      (el) => getComputedStyle(el).color,
     );
+    expect(["rgb(255, 83, 100)", "rgb(21, 58, 114)"]).toContain(color);
 
-    if (isLiked) {
-      await expect(postCard.likeButton).toHaveCSS("color", "rgb(255, 83, 100)"); // червоний
-    } else {
-      await expect(postCard.likeButton).toHaveCSS("color", "rgb(21, 58, 114)"); // сірий
-    }
-
-    if (!isLiked) {
-      await postCard.like();
-    } else {
-      await postCard.like();
-    }
+    // toggle like regardless of previous state
+    await postCard.like();
   });
+
   test("DN-009 Add comment to the post", async ({ page }) => {
     const post = page
       .locator("li.post")

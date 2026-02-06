@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from "@playwright/test";
+import { Locator, expect } from "@playwright/test";
 
 export class PostCard {
   readonly root: Locator;

@@ -1,4 +1,4 @@
-import { test, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 
 export async function logInPROD(page: Page) {
   await page.goto("/login");

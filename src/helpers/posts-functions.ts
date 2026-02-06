@@ -1,4 +1,4 @@
-import { expect, test, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 
 // Scroll
 async function loadAllRecommendationPostsWithScroll(page: Page) {

@@ -32,7 +32,9 @@ export const test = base.extend<AuthFixtures>({
       }
 
       await loginPage.login(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         process.env.LOGIN_PHONE!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         process.env.LOGIN_PASSWORD!,
       );
 

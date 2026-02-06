@@ -19,6 +19,7 @@ test.describe(
       await myPostPopup.closeMyPost();
       await expect(myPostPopup.postImage).not.toBeVisible();
     });
+
     test("DN-011 Add / Delete comment in the My Post", async ({ page }) => {
       await goToMyDogProfileFromSidebar(page);
 

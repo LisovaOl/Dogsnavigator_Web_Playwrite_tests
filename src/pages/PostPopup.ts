@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from "@playwright/test";
+import { Locator, expect } from "@playwright/test";
 
 export class PostPopup {
   readonly root: Locator;
@@ -46,7 +46,6 @@ export class PostPopup {
     await this.closePopupButton.click();
   }
   async addComment(text: string) {
-    const commentText = "Test message";
     await this.commentInputField.fill(text);
     await this.commentSendButton.click();
   }

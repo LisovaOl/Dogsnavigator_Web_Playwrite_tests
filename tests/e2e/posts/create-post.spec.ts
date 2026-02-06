@@ -5,7 +5,7 @@ import { test, expect } from "../../fixtures/auth.fixture";
 import { Post } from "../../../src/pages/PostPage";
 
 test.describe(
-  "Create, Edit, Delete, Limit Post tests. ",
+  "Create, Edit, Delete, Limit Post tests.",
   { tag: ["@functional", "@ui"] },
   () => {
     test("DN-003 Verify create post popup-UI", async ({ page }) => {
@@ -116,6 +116,7 @@ test.describe(
       // Delete the created post to clean up
       await addPost.deletePost(page);
     });
+
     test("DN-006 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {
