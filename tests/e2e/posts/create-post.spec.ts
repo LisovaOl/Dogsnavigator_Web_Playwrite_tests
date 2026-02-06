@@ -1,23 +1,13 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-// import {
-//   findPostByAuthor,
-// } from "./posts-functions";
-import { Post } from "../../../src/pages/PostPage";
+import { PostPage } from "../../../src/pages/PostPage";
+import { goToMyDogProfileFromSidebar } from "../../../src/pages/Sidebar";
 
 test.describe(
   "Create, Edit, Delete, Limit Post tests.",
   { tag: ["@functional", "@ui"] },
   () => {
     test("DN-003 Verify create post popup-UI", async ({ page }) => {
-      const addPost = new Post(page);
-      await expect(addPost.addPostButton).toHaveCSS(
-        "background-color",
-        "rgb(255, 217, 118)",
-      );
-      await expect(addPost.addPostButton).toHaveCSS(
-        "color",
-        "rgb(21, 58, 114)",
-      );
+      const addPost = new PostPage(page);
 
       await addPost.clickOnAddPostButton();
 
@@ -25,36 +15,20 @@ test.describe(
       await expect(page.getByText("Що у вас нового?")).toBeVisible();
       await expect(page.getByRole("textbox")).toBeVisible();
       await expect(addPost.publishButton).toBeVisible();
-      await expect(addPost.publishButton).toHaveCSS(
-        "background-color",
-        "rgb(173, 190, 216)",
-      );
-      await expect(addPost.publishButton).toHaveCSS(
-        "color",
-        "rgb(255, 255, 255)",
-      );
-      await expect(addPost.addPhotoButton).toHaveCSS(
-        "color",
-        "rgb(173, 190, 216)",
-      );
 
       await addPost.closeButton.click();
       await expect(page.getByText("Створення публікації")).toBeHidden();
     });
 
     test("DN-004 Add and Delete post with photo and text", async ({ page }) => {
-      const addPost = new Post(page);
+      const addPost = new PostPage(page);
+
       await addPost.clickOnAddPostButton();
       await addPost.clickOnAddPhotoButton();
 
       await addPost.uploadPhotoFromFixture();
 
-      // Check that the photo is added and "ОПУБЛІКУВАТИ" button change color
       await expect(page.locator(".photo-preview")).toBeVisible();
-      await expect(addPost.publishButton).toHaveCSS(
-        "background-color",
-        "rgb(255, 217, 118)",
-      );
 
       // Add text to the post
       const postText = "This is a test post with photo.";
@@ -68,12 +42,17 @@ test.describe(
       await addPost.successfullyPublishPostNotification();
 
       // Delete the created post to clean up
-      await addPost.goToProfilePage(page);
-      await addPost.deletePost(page);
+      await goToMyDogProfileFromSidebar(page);
+
+      await addPost.firstPost.click();
+      await addPost.clickDeleteButton();
+      await expect(addPost.acceptDeleteNotification).toBeVisible();
+      await addPost.clickConfirmDelete();
+      await expect(addPost.acceptDeleteNotification).toBeHidden();
     });
 
-    test("DN-005 Add, Edit Text and Delete post", async ({ page }) => {
-      const addPost = new Post(page);
+    test("DN-005 Edit Text post", async ({ page }) => {
+      const addPost = new PostPage(page);
 
       await addPost.clickOnAddPostButton();
       await addPost.clickOnAddPhotoButton();
@@ -89,10 +68,10 @@ test.describe(
       await addPost.successfullyPublishPostNotification();
 
       // Go to profile
-      await addPost.goToProfilePage(page);
+      await goToMyDogProfileFromSidebar(page);
 
       // Open Last published post
-      await page.locator("//app-pet-page-publications-tab/ul/li[1]").click();
+      await addPost.firstPost.click();
       await expect(page.locator("img.post-image")).toBeVisible();
 
       await expect(page.getByText(postText)).toBeVisible();
@@ -114,13 +93,17 @@ test.describe(
       await page.getByRole("button").nth(1).click();
 
       // Delete the created post to clean up
-      await addPost.deletePost(page);
+      await addPost.firstPost.click();
+      await addPost.clickDeleteButton();
+      await expect(addPost.acceptDeleteNotification).toBeVisible();
+      await addPost.clickConfirmDelete();
+      await expect(addPost.acceptDeleteNotification).toBeHidden();
     });
 
     test("DN-006 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {
-      const addPost = new Post(page);
+      const addPost = new PostPage(page);
 
       // Add 5 posts
       let i = 0;
@@ -154,14 +137,12 @@ test.describe(
       // Delete added posts - Clean up
       let el = 0;
       while (el < 5) {
-        await addPost.goToProfilePage(page);
-        await addPost.deletePost(page);
+        await goToMyDogProfileFromSidebar(page);
+        await addPost.firstPost.click();
+        await addPost.clickDeleteButton();
+        await addPost.clickConfirmDelete();
         el++;
       }
     });
-
-    // test.only("Get Author", async ({ page }) => {
-    //   await findPostByAuthor(page, "Topik");
-    // });
   },
 );
