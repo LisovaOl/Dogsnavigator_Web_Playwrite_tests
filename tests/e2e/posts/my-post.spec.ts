@@ -17,7 +17,7 @@ test.describe(
       await expect(myPostPopup.postImage).toBeVisible();
 
       await myPostPopup.closeMyPost();
-      await expect(myPostPopup.postImage).not.toBeVisible();
+      await expect(myPostPopup.postImage).toBeHidden();
     });
 
     test("DN-011 Add / Delete comment in the My Post", async ({ page }) => {
@@ -51,7 +51,7 @@ test.describe(
       });
 
       await myPostPopup.closeMyPost();
-      await expect(myPostPopup.postImage).not.toBeVisible();
+      await expect(myPostPopup.postImage).toBeHidden();
     });
   },
 );
