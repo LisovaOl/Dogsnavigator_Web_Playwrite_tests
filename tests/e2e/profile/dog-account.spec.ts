@@ -3,12 +3,12 @@ import {
   goToMyDogProfileFromSidebar,
   goToProfile,
 } from "../../../src/pages/Sidebar";
-import { DogAccount } from "../../../src/pages/DogAccount";
+import { DogAccountPage } from "../../../src/pages/DogAccountPage";
 
 test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-012 Change Dog Name", async ({ page }) => {
     await goToProfile(page);
-    const editDogName = new DogAccount(page);
+    const editDogName = new DogAccountPage(page);
 
     const originalDogName = await editDogName.getDogName();
     console.log("Original name: ", originalDogName);
@@ -40,10 +40,10 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
 
   test("DN-013 Change dog breed", async ({ page }) => {
     await goToProfile(page);
-    const editDogNBreed = new DogAccount(page);
-    await editDogNBreed.setNewDogBreed(page);
+    const editDogBreed = new DogAccountPage(page);
+    await editDogBreed.setNewDogBreed();
     await goToProfile(page);
-    await editDogNBreed.setOldDogBreed(page);
+    await editDogBreed.setOldDogBreed();
     // ensure test contains at least one assertion to avoid "Test has no assertions" error
     expect(true).toBeTruthy();
   });

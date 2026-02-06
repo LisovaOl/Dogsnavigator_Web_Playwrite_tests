@@ -3,12 +3,12 @@ import {
   goToMyDogProfileFromSidebar,
   goToProfile,
 } from "../../../src/pages/Sidebar";
-import { OwnerAccount } from "../../../src/pages/OwnerAccount";
+import { OwnerAccountPage } from "../../../src/pages/OwnerAccountPage";
 
 test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-014 Change Owner Name", async ({ page }) => {
     await goToProfile(page);
-    const editOwnerName = new OwnerAccount(page);
+    const editOwnerName = new OwnerAccountPage(page);
 
     await editOwnerName.goToOwnerAccount();
 
@@ -44,12 +44,12 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
 
   test("DN-015 Change owner city", async ({ page }) => {
     await goToProfile(page);
-    const editOwnerCity = new OwnerAccount(page);
+    const editOwnerCity = new OwnerAccountPage(page);
 
     await editOwnerCity.goToOwnerAccount();
-    await editOwnerCity.setNewCity(page);
+    await editOwnerCity.setNewCity();
     await goToProfile(page);
     await editOwnerCity.goToOwnerAccount();
-    await editOwnerCity.setOldCity(page);
+    await editOwnerCity.setOldCity();
   });
 });
