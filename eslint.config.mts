@@ -144,3 +144,40 @@ export default tseslint.config(
     },
   },
 );
+
+
+
+
+// import js from "@eslint/js";
+// import globals from "globals";
+// import tseslint from "typescript-eslint";
+// import playwright from "eslint-plugin-playwright";
+// import prettier from "eslint-plugin-prettier";
+// import prettierConfig from "eslint-config-prettier";
+
+// export default tseslint.config(
+//   js.configs.recommended,
+//   ...tseslint.configs.recommended,
+//   prettierConfig,
+//   {
+//     ignores: ["node_modules/**", "playwright-report/**", "test-results/**"]
+//   },
+//   {
+//     files: ["**/*.{ts,tsx}"],
+//     plugins: { prettier },
+//     languageOptions: {
+//       globals: {
+//         ...globals.node,
+//         ...globals.browser
+//       }
+//     },
+//     rules: {
+//       "prettier/prettier": "warn",
+//       "@typescript-eslint/no-unused-vars": "warn"
+//     }
+//   },
+//   {
+//     ...playwright.configs["flat/recommended"],
+//     files: ["**/*.spec.ts"]
+//   }
+// );

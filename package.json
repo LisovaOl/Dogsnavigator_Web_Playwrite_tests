@@ -6,18 +6,23 @@
   "scripts": {
     "ui": "npx playwright test --ui",
     "debug": "npx playwright test --debug",
-    "codegen": "npx playwright codegen"
+    "codegen": "npx playwright codegen",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "Olena Lisova",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/dotenv": "^6.1.1",
     "@types/node": "^24.7.1",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-playwright": "^2.5.1",
     "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.3.0",
+    "jiti": "^2.6.1",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0"
   },
   "directories": {
@@ -32,11 +37,6 @@
   },
   "homepage": "https://github.com/LisovaOl/Dogsnavigator_Web_Playwrite_tests#readme",
   "dependencies": {
-    "create-playwright-seed": "^1.2.0",
-    "dotenv": "^17.2.3",
-    "eslint": "^9.39.2",
-    "husky-init": "^8.0.0",
-    "prettier": "^3.8.1",
-    "typescript": "^5.9.3"
+    "dotenv": "^17.2.3"
   }
 }
