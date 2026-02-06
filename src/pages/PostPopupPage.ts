@@ -1,6 +1,6 @@
 import { Locator, expect } from "@playwright/test";
 import { BaseComponent } from "./BaseComponent";
-export class PostPopup extends BaseComponent {
+export class PostPopupPage extends BaseComponent {
   readonly firstPost: Locator = this.root.locator("li > img").first();
   readonly creatorName: Locator = this.root.locator(".creator-dog-info");
   readonly commentText: Locator = this.root.locator(".comment-text");
