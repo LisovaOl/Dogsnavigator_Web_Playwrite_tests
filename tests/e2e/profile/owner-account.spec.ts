@@ -4,6 +4,7 @@ import {
   goToProfile,
 } from "../../../src/pages/Sidebar";
 import { OwnerAccountPage } from "../../../src/pages/OwnerAccountPage";
+import { makeNewString } from "../../../src/helpers/helpers";
 
 test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-014 Change Owner Name", async ({ page }) => {
@@ -12,34 +13,27 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
 
     await editOwnerName.goToOwnerAccount();
 
+    // Зберігаємо оригінальне імя
     const originalOwnerName = await editOwnerName.getOwnerName();
-    console.log("Original name: ", originalOwnerName);
 
-    const currentName = await editOwnerName.getOwnerName();
-    console.log("Current name: ", currentName);
+    // Генеруємо нове імя
+    const newOwnerName = await makeNewString(originalOwnerName);
+    await editOwnerName.changeOwnerName(newOwnerName);
+    await expect(editOwnerName.ownerName).toHaveValue(newOwnerName);
 
-    const newName = editOwnerName.makeDifferentName(currentName);
-    //console.log("New name: ", newName);
-
-    await editOwnerName.changeOwnerName(newName);
-    //console.log("Current name: ", currentName);
-    console.log("New name changed: ", newName);
-    //console.log("Old name: ", newName);
-
+    // Перевіряємо чи нове імя відображається в профілі
     await goToMyDogProfileFromSidebar(page);
-    await expect(page.locator(".owner-name")).toHaveText(newName);
-    console.log("New name on the sidebar: ", newName);
+    await expect(page.locator(".owner-name")).toHaveText(newOwnerName);
 
-    // return old dog name
+    // Повертаємо оригінальне імя
     await goToProfile(page);
     await editOwnerName.goToOwnerAccount();
-
     await editOwnerName.changeOwnerName(originalOwnerName);
-    console.log("Old name: ", originalOwnerName);
 
+    // Перевіряємо чи відображається оригінальне імя в профілі
     await goToMyDogProfileFromSidebar(page);
     await expect(page.locator(".owner-name")).toHaveText(originalOwnerName);
-    console.log("Returned name: ", originalOwnerName);
+    console.log("Returned name on the Profile: ", originalOwnerName);
   });
 
   test("DN-015 Change owner city", async ({ page }) => {

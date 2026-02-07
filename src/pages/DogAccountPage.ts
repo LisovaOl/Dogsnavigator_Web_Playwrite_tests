@@ -10,24 +10,13 @@ export class DogAccountPage extends BasePage {
   });
 
   async getDogName(): Promise<string> {
-    const oldName = await this.dogName.inputValue();
-    return oldName.trim();
+    const name = await this.dogName.inputValue();
+    return name.trim();
   }
 
-  makeDifferentName(oldName: string): string {
-    const base = oldName.trim();
-    const suffix = Date.now().toString().slice(-6); // коротко
-    // якщо є ліміт довжини — обрізай
-    return `${base}-${suffix}`.slice(0, 9);
-  }
-
-  async changeDogName(newName: string): Promise<void> {
-    //await this.dogName.click();
-    await this.dogName.fill(newName);
+  async changeDogName(newDogName: string): Promise<void> {
+    await this.dogName.fill(newDogName);
     await this.saveButton.click();
-
-    // чекати, що збереглось: або toast, або апдейт поля
-    await expect(this.dogName).toHaveValue(newName, { timeout: 30_000 });
   }
 
   async setNewDogBreed(): Promise<void> {
