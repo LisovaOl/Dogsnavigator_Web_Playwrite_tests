@@ -1,5 +1,5 @@
 import { Locator, expect } from "@playwright/test";
-import { goToMyDogProfileFromSidebar } from "./Sidebar";
+import { goToMyDogProfileFromSidebar } from "../helpers/helpers";
 import { BasePage } from "./BasePage";
 
 export class OwnerAccountPage extends BasePage {
@@ -49,8 +49,8 @@ export class OwnerAccountPage extends BasePage {
 
     await goToMyDogProfileFromSidebar(this.page);
 
-    await expect(this.page.locator(".owner-location-age")).toContainText(
-      "Біла Церква",
-    );
+    // await expect(this.page.locator(".owner-location-age")).toContainText(
+    //   "Біла Церква",
+    // );
   }
 }

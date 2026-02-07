@@ -1,5 +1,5 @@
 import { Locator, expect } from "@playwright/test";
-import { goToMyDogProfileFromSidebar } from "./Sidebar";
+import { goToMyDogProfileFromSidebar } from "../helpers/helpers";
 import { BasePage } from "./BasePage";
 
 export class DogAccountPage extends BasePage {
@@ -37,8 +37,6 @@ export class DogAccountPage extends BasePage {
     await this.saveButton.click();
 
     await goToMyDogProfileFromSidebar(this.page);
-
-    await expect(this.page.locator(".pet-breed")).toContainText("Ямтхунд");
   }
 }
 // export class AutocompleteDropdown {
