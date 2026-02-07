@@ -1,6 +1,6 @@
 import { test, expect } from "../../fixtures/auth.fixture";
 import { PostPage } from "../../../src/pages/PostPage";
-import { goToMyDogProfileFromSidebar } from "../../../src/pages/Sidebar";
+import { Sidebar } from "../../../src/pages/Sidebar";
 
 test.describe(
   "Create, Edit, Delete, Limit Post tests.",
@@ -21,6 +21,8 @@ test.describe(
     });
 
     test("DN-004 Add and Delete post with photo and text", async ({ page }) => {
+      const goToMyDogProfile = new Sidebar(page);
+
       const addPost = new PostPage(page);
 
       await addPost.clickOnAddPostButton();
@@ -42,7 +44,7 @@ test.describe(
       await addPost.successfullyPublishPostNotification();
 
       // Delete the created post to clean up
-      await goToMyDogProfileFromSidebar(page);
+      await goToMyDogProfile.goToMyDogProfile();
 
       await addPost.firstPost.click();
       await addPost.clickDeleteButton();
@@ -52,6 +54,8 @@ test.describe(
     });
 
     test("DN-005 Edit Text post", async ({ page }) => {
+      const goToMyDogProfile = new Sidebar(page);
+
       const addPost = new PostPage(page);
 
       await addPost.clickOnAddPostButton();
@@ -68,7 +72,7 @@ test.describe(
       await addPost.successfullyPublishPostNotification();
 
       // Go to profile
-      await goToMyDogProfileFromSidebar(page);
+      await goToMyDogProfile.goToMyDogProfile();
 
       // Open Last published post
       await addPost.firstPost.click();
@@ -103,6 +107,7 @@ test.describe(
     test("DN-006 Verify notification when adding more than 5 posts with photos", async ({
       page,
     }) => {
+      const goToMyDogProfile = new Sidebar(page);
       const addPost = new PostPage(page);
 
       // Add 5 posts
@@ -137,7 +142,7 @@ test.describe(
       // Delete added posts - Clean up
       let el = 0;
       while (el < 5) {
-        await goToMyDogProfileFromSidebar(page);
+        await goToMyDogProfile.goToMyDogProfile();
         await addPost.firstPost.click();
         await addPost.clickDeleteButton();
         await addPost.clickConfirmDelete();

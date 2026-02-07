@@ -1,6 +1,9 @@
 import { test, expect } from "../../fixtures/auth.fixture";
 import { DogAccountPage } from "../../../src/pages/DogAccountPage";
-import { makeNewString } from "../../../src/helpers/helpers";
+import {
+  makeNewString,
+  selectFromSearchDropdown,
+} from "../../../src/helpers/helpers";
 import { Sidebar } from "../../../src/pages/Sidebar";
 
 test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
@@ -36,14 +39,42 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
 
   test("DN-013 Change dog breed", async ({ page }) => {
     const goToProfile = new Sidebar(page);
+    const goToMyDogProfile = new Sidebar(page);
 
+    // Зміна породи
     await goToProfile.goToProfile();
-    const editDogBreed = new DogAccountPage(page);
-    await editDogBreed.setNewDogBreed();
+    const selectedBreed = await selectFromSearchDropdown(
+      page,
+      page.locator("#petBreed label"),
+      "пуд",
+      "Пудель",
+    );
+
+    await page
+      .getByRole("button", {
+        name: "Зберегти",
+      })
+      .click();
+    await goToMyDogProfile.goToMyDogProfile();
+
+    await expect(page.locator(".pet-breed")).toContainText(selectedBreed);
+
+    // Зміна породи назад
     await goToProfile.goToProfile();
-    await editDogBreed.setOldDogBreed();
-    await expect(page.locator(".pet-breed")).toContainText("Ямтхунд");
-    // ensure test contains at least one assertion to avoid "Test has no assertions" error
-    //expect(true).toBeTruthy();
+    const selectedBreed2 = await selectFromSearchDropdown(
+      page,
+      page.locator("#petBreed label"),
+      "ямт",
+      "Ямтхунд",
+    );
+
+    await page
+      .getByRole("button", {
+        name: "Зберегти",
+      })
+      .click();
+    await goToMyDogProfile.goToMyDogProfile();
+
+    await expect(page.locator(".pet-breed")).toContainText(selectedBreed2);
   });
 });

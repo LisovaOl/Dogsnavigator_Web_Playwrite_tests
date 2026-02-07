@@ -1,5 +1,5 @@
 import { test, expect } from "../../fixtures/auth.fixture";
-import { goToMyDogProfileFromSidebar } from "../../../src/pages/Sidebar";
+import { Sidebar } from "../../../src/pages/Sidebar";
 import { PostPopupPage } from "../../../src/pages/PostPopupPage";
 
 test.describe(
@@ -7,7 +7,9 @@ test.describe(
   { tag: ["@functional", "@ui"] },
   () => {
     test("DN-010 Open/Close My Post. UI", async ({ page }) => {
-      await goToMyDogProfileFromSidebar(page);
+      const goToMyDogProfile = new Sidebar(page);
+
+      await goToMyDogProfile.goToMyDogProfile();
 
       const myPostPopup = new PostPopupPage(page.locator("body"));
 
@@ -21,7 +23,9 @@ test.describe(
     });
 
     test("DN-011 Add / Delete comment in the My Post", async ({ page }) => {
-      await goToMyDogProfileFromSidebar(page);
+      const goToMyDogProfile = new Sidebar(page);
+
+      await goToMyDogProfile.goToMyDogProfile();
 
       const myPostPopup = new PostPopupPage(page.locator("body"));
 

@@ -1,4 +1,4 @@
-import { Page, expect } from "@playwright/test";
+import { Page, expect, Locator } from "@playwright/test";
 
 export async function makeNewString(string: string) {
   const base = string.trim();
@@ -17,4 +17,20 @@ export async function goToProfile(page: Page) {
   await expect(
     page.getByRole("heading", { name: "Мій Профіль" }),
   ).toBeVisible();
+}
+
+export async function selectFromSearchDropdown(
+  page: Page,
+  input: Locator,
+  searchText: string,
+  expectedOption: string,
+): Promise<string> {
+  await input.fill(searchText);
+
+  const option = page.getByText(expectedOption, { exact: true });
+
+  await expect(option).toBeVisible();
+  await option.click();
+
+  return expectedOption;
 }
