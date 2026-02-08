@@ -1,5 +1,4 @@
-import { Locator, expect } from "@playwright/test";
-import { goToMyDogProfileFromSidebar } from "../helpers/helpers";
+import { Locator } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class OwnerAccountPage extends BasePage {
@@ -24,33 +23,5 @@ export class OwnerAccountPage extends BasePage {
   async changeOwnerName(newOwnerName: string): Promise<void> {
     await this.ownerName.fill(newOwnerName);
     await this.saveButton.click();
-
-    // чекати, що збереглось: або toast, або апдейт поля
-  }
-
-  async setNewCity(): Promise<void> {
-    await this.city.fill("дні");
-
-    await this.page.getByText("Дніпро", { exact: true }).click();
-    await this.saveButton.click();
-
-    await goToMyDogProfileFromSidebar(this.page);
-
-    await expect(this.page.locator(".owner-location-age")).toContainText(
-      "Дніпро",
-    );
-  }
-
-  async setOldCity(): Promise<void> {
-    await this.city.fill("біла");
-
-    await this.page.getByText("Біла Церква", { exact: true }).click();
-    await this.saveButton.click();
-
-    await goToMyDogProfileFromSidebar(this.page);
-
-    // await expect(this.page.locator(".owner-location-age")).toContainText(
-    //   "Біла Церква",
-    // );
   }
 }

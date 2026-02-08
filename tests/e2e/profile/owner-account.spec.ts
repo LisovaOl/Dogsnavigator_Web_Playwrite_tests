@@ -1,6 +1,9 @@
 import { test, expect } from "../../fixtures/auth.fixture";
 import { OwnerAccountPage } from "../../../src/pages/OwnerAccountPage";
-import { makeNewString } from "../../../src/helpers/helpers";
+import {
+  makeNewString,
+  selectFromSearchDropdown,
+} from "../../../src/helpers/helpers";
 import { Sidebar } from "../../../src/pages/Sidebar";
 
 test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
@@ -37,18 +40,51 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
   });
 
   test("DN-015 Change owner city", async ({ page }) => {
+    const goToMyDogProfile = new Sidebar(page);
     const goToProfile = new Sidebar(page);
+    const ownerAccount = new OwnerAccountPage(page);
 
+    // Зміна міста на нове
     await goToProfile.goToProfile();
-    const editOwnerCity = new OwnerAccountPage(page);
+    await ownerAccount.goToOwnerAccount();
+    const selectedCity = await selectFromSearchDropdown(
+      page,
+      page.getByPlaceholder("Місто"),
+      "дні",
+      "Дніпро",
+    );
 
-    await editOwnerCity.goToOwnerAccount();
-    await editOwnerCity.setNewCity();
-    await goToProfile.goToProfile();
-    await editOwnerCity.goToOwnerAccount();
-    await editOwnerCity.setOldCity();
+    await page
+      .getByRole("button", {
+        name: "Зберегти",
+      })
+      .click();
+    await goToMyDogProfile.goToMyDogProfile();
+
     await expect(page.locator(".owner-location-age")).toContainText(
+      selectedCity,
+    );
+
+    // змінити місто назад
+    await goToProfile.goToProfile();
+    await ownerAccount.goToOwnerAccount();
+
+    const selectedCity2 = await selectFromSearchDropdown(
+      page,
+      page.getByPlaceholder("Місто"),
+      "біла",
       "Біла Церква",
+    );
+
+    await page
+      .getByRole("button", {
+        name: "Зберегти",
+      })
+      .click();
+    await goToMyDogProfile.goToMyDogProfile();
+
+    await expect(page.locator(".owner-location-age")).toContainText(
+      selectedCity2,
     );
   });
 });
