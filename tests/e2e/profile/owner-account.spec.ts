@@ -86,5 +86,6 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
     await expect(page.locator(".owner-location-age")).toContainText(
       selectedCity2,
     );
+    console.log("Returned city on the Profile: ", selectedCity2);
   });
 });

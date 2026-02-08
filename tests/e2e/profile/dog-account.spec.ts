@@ -76,5 +76,6 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
     await goToMyDogProfile.goToMyDogProfile();
 
     await expect(page.locator(".pet-breed")).toContainText(selectedBreed2);
+    console.log("Returned breed on the Profile: ", selectedBreed2);
   });
 });
