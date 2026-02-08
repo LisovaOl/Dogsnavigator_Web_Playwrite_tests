@@ -47,13 +47,13 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
     const sidebar = new Sidebar(page);
     const saveButton = page.getByRole("button", { name: "Зберегти" });
 
-    let selectedBreed1: string;
-    let selectedBreed2: string;
+    let selectedNewBreed: string;
+    let selectedOriginalBreed: string;
 
     await test.step("Change breed to Пудель and verify in My Dog Profile", async () => {
       await sidebar.goToProfile();
 
-      selectedBreed1 = await selectFromSearchDropdown(
+      selectedNewBreed = await selectFromSearchDropdown(
         page,
         page.locator("#petBreed label"),
         "пуд",
@@ -63,13 +63,13 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
       await saveButton.click();
 
       await sidebar.goToMyDogProfile();
-      await expect(page.locator(".pet-breed")).toContainText(selectedBreed1);
+      await expect(page.locator(".pet-breed")).toContainText(selectedNewBreed);
     });
 
     await test.step("Change breed back to Ямтхунд and verify in My Dog Profile", async () => {
       await sidebar.goToProfile();
 
-      selectedBreed2 = await selectFromSearchDropdown(
+      selectedOriginalBreed = await selectFromSearchDropdown(
         page,
         page.locator("#petBreed label"),
         "ямт",
@@ -79,9 +79,11 @@ test.describe("Dog Account", { tag: ["@functional", "@ui"] }, () => {
       await saveButton.click();
 
       await sidebar.goToMyDogProfile();
-      await expect(page.locator(".pet-breed")).toContainText(selectedBreed2);
+      await expect(page.locator(".pet-breed")).toContainText(
+        selectedOriginalBreed,
+      );
 
-      console.log("Returned breed on the Profile:", selectedBreed2);
+      console.log("Returned breed on the Profile:", selectedOriginalBreed);
     });
   });
 });

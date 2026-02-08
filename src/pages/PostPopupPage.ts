@@ -34,6 +34,7 @@ export class PostPopupPage extends BaseComponent {
   async closeMyPost(): Promise<void> {
     await this.closePopupButton.click();
   }
+
   async addComment(text: string) {
     await this.commentInputField.fill(text);
     await this.commentSendButton.click();

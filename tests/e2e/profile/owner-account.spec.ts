@@ -52,14 +52,14 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
     const cityField = page.getByPlaceholder("Місто");
     const ownerLocation = page.locator(".owner-location-age");
 
-    let selectedCity1: string;
-    let selectedCity2: string;
+    let selectedNewCity: string;
+    let selectedOriginalCity: string;
 
     await test.step("Change city to Дніпро and verify in My Dog Profile", async () => {
       await sidebar.goToProfile();
       await ownerAccount.goToOwnerAccount();
 
-      selectedCity1 = await selectFromSearchDropdown(
+      selectedNewCity = await selectFromSearchDropdown(
         page,
         cityField,
         "дні",
@@ -69,14 +69,14 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
       await saveButton.click();
 
       await sidebar.goToMyDogProfile();
-      await expect(ownerLocation).toContainText(selectedCity1);
+      await expect(ownerLocation).toContainText(selectedNewCity);
     });
 
     await test.step("Change city back to Біла Церква and verify in My Dog Profile", async () => {
       await sidebar.goToProfile();
       await ownerAccount.goToOwnerAccount();
 
-      selectedCity2 = await selectFromSearchDropdown(
+      selectedOriginalCity = await selectFromSearchDropdown(
         page,
         cityField,
         "біла",
@@ -86,9 +86,9 @@ test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
       await saveButton.click();
 
       await sidebar.goToMyDogProfile();
-      await expect(ownerLocation).toContainText(selectedCity2);
+      await expect(ownerLocation).toContainText(selectedOriginalCity);
 
-      console.log("Returned city on the Profile:", selectedCity2);
+      console.log("Returned city on the Profile:", selectedOriginalCity);
     });
   });
 });

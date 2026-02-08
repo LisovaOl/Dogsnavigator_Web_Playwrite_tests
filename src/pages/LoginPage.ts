@@ -8,12 +8,10 @@ export class LoginPage extends BasePage {
     name: "Увійти",
   });
 
-  // Open login page
   async open(): Promise<void> {
     await this.page.goto("/");
   }
 
-  // Perform login
   async login(phone: string, password: string): Promise<void> {
     await this.phoneInput.fill(phone);
     await this.passwordInput.fill(password);

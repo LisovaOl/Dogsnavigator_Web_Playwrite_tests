@@ -29,41 +29,34 @@ export class PostPage extends BasePage {
     "Ви досягли ліміту публікацій на сьогодні. Спробуйте завтра.",
   );
 
-  // Click Add Post button
   async clickOnAddPostButton(): Promise<void> {
     await this.addPostButton.click();
   }
 
-  // Click Add Photo Button
   async clickOnAddPhotoButton(): Promise<void> {
     await this.addPhotoButton.click();
   }
 
-  // Upload file to the post
   async uploadPhotoFromFixture(): Promise<void> {
     await this.fileInput.setInputFiles(
       "src/test-data/images/dog-photo-original.jpg",
     );
   }
 
-  // Click Publish button
   async clickOnPublishButton(): Promise<void> {
     await this.publishButton.click();
   }
 
-  // Close Success Message
   async successfullyPublishPostNotification(): Promise<void> {
     await this.successPublishPostNotification.waitFor({ state: "visible" });
     await this.closeIcon.click();
     await this.successPublishPostNotification.waitFor({ state: "hidden" });
   }
 
-  // Click delete button
   async clickDeleteButton(): Promise<void> {
     await this.deletePostButton.click();
   }
 
-  // Click confirm delete button
   async clickConfirmDelete(): Promise<void> {
     await this.acceptDeleteButton.click();
   }
