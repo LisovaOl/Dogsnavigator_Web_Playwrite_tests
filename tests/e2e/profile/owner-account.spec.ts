@@ -8,84 +8,87 @@ import { Sidebar } from "../../../src/pages/Sidebar";
 
 test.describe("Owner Account", { tag: ["@functional", "@ui"] }, () => {
   test("DN-014 Change Owner Name", async ({ page }) => {
-    const goToMyDogProfile = new Sidebar(page);
-    const goToProfile = new Sidebar(page);
-
-    await goToProfile.goToProfile();
+    const sidebar = new Sidebar(page);
     const editOwnerName = new OwnerAccountPage(page);
 
-    await editOwnerName.goToOwnerAccount();
+    let originalOwnerName: string;
+    let newOwnerName: string;
 
-    // Зберігаємо оригінальне імя
-    const originalOwnerName = await editOwnerName.getOwnerName();
+    await test.step("Open Owner Account and get original owner name", async () => {
+      await sidebar.goToProfile();
+      await editOwnerName.goToOwnerAccount();
+      originalOwnerName = await editOwnerName.getOwnerName();
+    });
 
-    // Генеруємо нове імя
-    const newOwnerName = await makeNewString(originalOwnerName);
-    await editOwnerName.changeOwnerName(newOwnerName);
-    await expect(editOwnerName.ownerName).toHaveValue(newOwnerName);
+    await test.step("Generate new owner name and update it", async () => {
+      newOwnerName = await makeNewString(originalOwnerName);
 
-    // Перевіряємо чи нове імя відображається в профілі
-    await goToMyDogProfile.goToMyDogProfile();
-    await expect(page.locator(".owner-name")).toHaveText(newOwnerName);
+      await editOwnerName.changeOwnerName(newOwnerName);
+      await expect(editOwnerName.ownerName).toHaveValue(newOwnerName);
+    });
 
-    // Повертаємо оригінальне імя
-    await goToProfile.goToProfile();
-    await editOwnerName.goToOwnerAccount();
-    await editOwnerName.changeOwnerName(originalOwnerName);
+    await test.step("Verify updated owner name is shown in My Dog Profile", async () => {
+      await sidebar.goToMyDogProfile();
+      await expect(page.locator(".owner-name")).toHaveText(newOwnerName);
+    });
 
-    // Перевіряємо чи відображається оригінальне імя в профілі
-    await goToMyDogProfile.goToMyDogProfile();
-    await expect(page.locator(".owner-name")).toHaveText(originalOwnerName);
-    console.log("Returned name on the Profile: ", originalOwnerName);
+    await test.step("Restore original owner name", async () => {
+      await sidebar.goToProfile();
+      await editOwnerName.goToOwnerAccount();
+      await editOwnerName.changeOwnerName(originalOwnerName);
+    });
+
+    await test.step("Verify original owner name is restored in My Dog Profile", async () => {
+      await sidebar.goToMyDogProfile();
+      await expect(page.locator(".owner-name")).toHaveText(originalOwnerName);
+      console.log("Returned name on the Profile:", originalOwnerName);
+    });
   });
 
   test("DN-015 Change owner city", async ({ page }) => {
-    const goToMyDogProfile = new Sidebar(page);
-    const goToProfile = new Sidebar(page);
+    const sidebar = new Sidebar(page);
     const ownerAccount = new OwnerAccountPage(page);
+    const saveButton = page.getByRole("button", { name: "Зберегти" });
+    const cityField = page.getByPlaceholder("Місто");
+    const ownerLocation = page.locator(".owner-location-age");
 
-    // Зміна міста на нове
-    await goToProfile.goToProfile();
-    await ownerAccount.goToOwnerAccount();
-    const selectedCity = await selectFromSearchDropdown(
-      page,
-      page.getByPlaceholder("Місто"),
-      "дні",
-      "Дніпро",
-    );
+    let selectedCity1: string;
+    let selectedCity2: string;
 
-    await page
-      .getByRole("button", {
-        name: "Зберегти",
-      })
-      .click();
-    await goToMyDogProfile.goToMyDogProfile();
+    await test.step("Change city to Дніпро and verify in My Dog Profile", async () => {
+      await sidebar.goToProfile();
+      await ownerAccount.goToOwnerAccount();
 
-    await expect(page.locator(".owner-location-age")).toContainText(
-      selectedCity,
-    );
+      selectedCity1 = await selectFromSearchDropdown(
+        page,
+        cityField,
+        "дні",
+        "Дніпро",
+      );
 
-    // змінити місто назад
-    await goToProfile.goToProfile();
-    await ownerAccount.goToOwnerAccount();
+      await saveButton.click();
 
-    const selectedCity2 = await selectFromSearchDropdown(
-      page,
-      page.getByPlaceholder("Місто"),
-      "біла",
-      "Біла Церква",
-    );
+      await sidebar.goToMyDogProfile();
+      await expect(ownerLocation).toContainText(selectedCity1);
+    });
 
-    await page
-      .getByRole("button", {
-        name: "Зберегти",
-      })
-      .click();
-    await goToMyDogProfile.goToMyDogProfile();
+    await test.step("Change city back to Біла Церква and verify in My Dog Profile", async () => {
+      await sidebar.goToProfile();
+      await ownerAccount.goToOwnerAccount();
 
-    await expect(page.locator(".owner-location-age")).toContainText(
-      selectedCity2,
-    );
-    console.log("Returned city on the Profile: ", selectedCity2);
+      selectedCity2 = await selectFromSearchDropdown(
+        page,
+        cityField,
+        "біла",
+        "Біла Церква",
+      );
+
+      await saveButton.click();
+
+      await sidebar.goToMyDogProfile();
+      await expect(ownerLocation).toContainText(selectedCity2);
+
+      console.log("Returned city on the Profile:", selectedCity2);
+    });
   });
 });

@@ -28,14 +28,18 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
 
     const postCard = new PostCardPage(post);
 
-    // color should be either liked (red) or not liked (gray)
-    const color = await postCard.likeButton.evaluate(
-      (el) => getComputedStyle(el).color,
-    );
-    expect(["rgb(255, 83, 100)", "rgb(21, 58, 114)"]).toContain(color);
+    await test.step("Verify like button initial state (liked or not liked)", async () => {
+      const color = await postCard.likeButton.evaluate(
+        (el) => getComputedStyle(el).color,
+      );
 
-    // toggle like regardless of previous state
-    await postCard.like();
+      // liked (red) or not liked (gray/blue)
+      expect(["rgb(255, 83, 100)", "rgb(21, 58, 114)"]).toContain(color);
+    });
+
+    await test.step("Toggle like state", async () => {
+      await postCard.like();
+    });
   });
 
   test("DN-009 Add comment to the post", async ({ page }) => {
@@ -45,13 +49,20 @@ test.describe("List of Posts tests", { tag: ["@functional", "@ui"] }, () => {
         has: page.locator(".author-name", { hasText: authorName }),
       })
       .first();
+
     const postCard = new PostCardPage(post);
-    await postCard.addComments();
-    await expect(
-      page
-        .locator("div")
-        .filter({ hasText: `${authorName}, Далматин7 Січня 2026` })
-        .nth(4),
-    ).toBeVisible();
+
+    await test.step("Add comment to the post", async () => {
+      await postCard.addComments();
+    });
+
+    await test.step("Verify new comment is visible under the post", async () => {
+      await expect(
+        page
+          .locator("div")
+          .filter({ hasText: `${authorName}, Далматин7 Січня 2026` })
+          .nth(4),
+      ).toBeVisible();
+    });
   });
 });
